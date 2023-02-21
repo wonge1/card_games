@@ -10,47 +10,47 @@ import java.util.*;
  */
 public class Driver
 {
-    // instance variables - replace the example below with your own
-    private static Deck deck; //the record of cards left
+    /////////////////////////////////////////////////
+    private static TestRand test;
+
+    //////////////////////////////////////////////////
     private static Player p1; //player object
     private static Dealer cpu; //dealer object
     private static boolean roundOver; //judges each round
     private static boolean gameOver; //tells if overall game is complete
     private static int reward;
+    private static boolean doTest;
 
-    public static void test()
-    {
-        deck.display();
-
-    }
-    
     public Driver()
     {
-        //setting all needed objects
-        deck = new Deck();
-        p1 = new Player();
-        cpu = new Dealer();
-        roundOver = false;
-        gameOver = false;
         
     }
 
     public static void main(String[] arg)
     {
-        deck = new Deck();
-        p1 = new Player();
-        cpu = new Dealer();
-        roundOver = false;
-        gameOver = false;
-        while(gameOver == false)
+        doTest = true;
+        if(doTest)
         {
-            while(roundOver == false)
-            {
-                game();
-
-            }
-            newRound();
+            test = new TestRand();
+            test.printCard();
         }
+        else
+        {
+            p1 = new Player();
+            cpu = new Dealer();
+            roundOver = false;
+            gameOver = false;
+            while(gameOver == false)
+            {
+                while(roundOver == false)
+                {
+                    game();
+
+                }
+                newRound();
+            }
+        }
+        
     }
     
     public static void game()
@@ -94,16 +94,17 @@ public class Driver
         {
             roundOver = true;
         }
-        else
+        else if(response.equals("N") || response.equals("n"))
         {
             roundOver = true;
             gameOver = true;
         }
+        
+        in.close();
     }
 
     public static void pointTracker(boolean player)//true tracks player, while false tracks cpu, win condtions are tracked during cpu tracking
     {
-        Scanner in = new Scanner(System.in);
         if(player)
         {
             p1.hasAce();//checks for aces in the hand and then checks score to evaluate worth of aces
