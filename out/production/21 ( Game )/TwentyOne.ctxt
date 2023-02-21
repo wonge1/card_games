@@ -1,0 +1,26 @@
+#BlueJ class context
+comment0.target=TwentyOne
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ TwentyOne\ here.\r\n\r\n\ @author\ (ED)\r\n\ @version\ (Year\ 1)\r\n
+comment1.params=arg
+comment1.target=void\ main(java.lang.String[])
+comment10.params=
+comment10.target=void\ winLose()
+comment11.params=player
+comment11.target=void\ winLose(boolean)
+comment2.params=
+comment2.target=void\ setup()
+comment3.params=player
+comment3.target=int\ deal(boolean)
+comment4.params=t\ player
+comment4.target=void\ display(java.util.ArrayList,\ boolean)
+comment5.params=i
+comment5.target=java.lang.String\ read(int)
+comment6.params=player
+comment6.target=int\ oneOrEleven(boolean)
+comment7.params=player
+comment7.target=boolean\ checkScore(boolean)
+comment8.params=
+comment8.target=void\ another()
+comment9.params=
+comment9.target=void\ dealer()
+numComments=12
