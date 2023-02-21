@@ -1,8 +1,9 @@
 public class TestRand 
 {
-    private int carWidth = 10;
-    private int carHeight = 8;
-    private boolean startOrEnd = true;
+    private int cardWidth = 10;
+    private int cardHeight = 8;
+    private int totalCards = 2;
+    private int currCard = 1;
 
     //testing the printing of ascii cards
     public TestRand()
@@ -12,23 +13,36 @@ public class TestRand
 
     public void printCard()
     {
-        for(int i = 0; i < carHeight; i++)
+        int i = 0; //col determinate
+        int j = 0; //row determinate
+
+        //try and figure out a way to avoid manipulating for loop variable outside of loop
+        while(i < cardHeight)
         {
-            for(int j = 0; j < carWidth; j++)
+            while(j < cardWidth) 
             {
-                if((i == 0 || i == carHeight-1) && j > 0 && j < carWidth-1) //top and bottom of card, leaving corners blank
+                if((i == 0 || i == cardHeight-1) && j > 0 && j < cardWidth-1) //top and bottom of card, leaving corners blank
                     System.out.print("-");
-                else if((j == 0 || j == carWidth-1) && i > 0 && i < carHeight-1) //printing sides
+                else if((j == 0 || j == cardWidth-1) && i > 0 && i < cardHeight-1) //printing sides
                     System.out.print("|");
-                else if((j == 2 || j == carWidth-3) && (i == 1 || i == carHeight-2)) //printing card attributes
+                else if((j == 2 && i == 1) || (j == cardWidth-3 && i == cardHeight-2)) //printing card attributes || j == carWidth-3
                     System.out.print("A");
                 else
                     System.out.print(" ");
-                
-                
+
+                j++;
+
+                if(j == cardWidth && currCard < totalCards)
+                {
+                    j = 0;
+                    currCard++;
+                }
             }
 
             System.out.println();
+            i++;
+            j = 0;
+            currCard = 1;
         }
         
     }
