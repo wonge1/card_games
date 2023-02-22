@@ -1,9 +1,9 @@
+import java.util.*;
+
 public class TestRand 
 {
     private int cardWidth = 10;
     private int cardHeight = 8;
-    private int totalCards = 2;
-    private int currCard = 1;
 
     //testing the printing of ascii cards
     public TestRand()
@@ -11,8 +11,10 @@ public class TestRand
 
     }
 
-    public void printCard()
+    public void printHand(int totalCards, ArrayList<Integer> list)
     {
+        int currCard = 1;
+
         int i = 0; //col determinate
         int j = 0; //row determinate
 

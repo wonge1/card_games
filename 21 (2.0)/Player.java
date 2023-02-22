@@ -48,6 +48,7 @@ public class Player extends Actor
             }
 
         }
+        in.close();
         return i;
 
     }
@@ -70,6 +71,7 @@ public class Player extends Actor
         System.out.println("Do you want another card? (Y/N)");
         System.out.println();
         String response = in.nextLine();
+        in.close();
         if(response.equals("y") || response.equals("Y"))
         {
             newCard();           
@@ -79,8 +81,8 @@ public class Player extends Actor
         else
         {
             return false;
-
         }
+        
     }
 
 }

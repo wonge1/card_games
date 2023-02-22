@@ -19,7 +19,7 @@ public class Driver
     private static boolean roundOver; //judges each round
     private static boolean gameOver; //tells if overall game is complete
     private static int reward;
-    private static boolean doTest;
+    private static Deck deck; //the record of cards left
 
     public Driver()
     {
@@ -28,28 +28,21 @@ public class Driver
 
     public static void main(String[] arg)
     {
-        doTest = true;
-        if(doTest)
+        //newGame();
+        deck = new Deck();
+        p1 = new Player();
+        cpu = new Dealer();
+        roundOver = false;
+        gameOver = false;
+        while(gameOver == false)
         {
-            test = new TestRand();
-            test.printCard();
-        }
-        else
-        {
-            p1 = new Player();
-            cpu = new Dealer();
-            roundOver = false;
-            gameOver = false;
-            while(gameOver == false)
+            while(roundOver == false)
             {
-                while(roundOver == false)
-                {
-                    game();
-
-                }
-                newRound();
+                game();
             }
+            newRound();
         }
+        
         
     }
     
