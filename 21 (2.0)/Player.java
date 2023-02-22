@@ -10,7 +10,7 @@ import java.util.*;
 public class Player extends Actor
 {
     // instance variables - replace the example below with your own
-    public int money = 1000;
+    public int money = 10000;
 
     /**
      * Constructor for objects of class Player

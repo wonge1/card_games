@@ -43,29 +43,20 @@ public class Actor
                 {
                     int k = hand.get(currCard-1);
                     if(k == 1)
-                    {
                         System.out.print("A");
-                    }
                     else if(k == 11)
-                    {
                         System.out.print("J");
-                    }
                     else if(k == 12)
-                    {
                         System.out.print("Q");
-                    }
                     else if(k == 13)
-                    {
                         System.out.print("K");
-                    }
+                    else if(k == 10)
+                        System.out.print("T");
                     else 
-                    {
                         System.out.print(k);
-                    }  
                 }
                 else
                     System.out.print(" "); //empty portions of card
-
 
                 j++;
 
