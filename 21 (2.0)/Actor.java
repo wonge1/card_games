@@ -14,46 +14,92 @@ public class Actor
     
     public void display(Object z) //whoever we are displaying for
     {
-        System.out.print(z+" ");
+        System.out.println(z+" ");
         displayHand();
-        System.out.print(z+" ");
         displayPoints();
     }
 
+    public void displayHand()
+    {
+        //car dimensions
+        int cardWidth = 10;
+        int cardHeight = 8;
+
+        int currCard = 1;
+
+        int i = 0; //col determinate
+        int j = 0; //row determinate
+
+        //try and figure out a way to avoid manipulating for loop variable outside of loop
+        while(i < cardHeight)
+        {
+            while(j < cardWidth) 
+            {
+                if((i == 0 || i == cardHeight-1) && j > 0 && j < cardWidth-1) //top and bottom of card, leaving corners blank
+                    System.out.print("-");
+                else if((j == 0 || j == cardWidth-1) && i > 0 && i < cardHeight-1) //printing sides
+                    System.out.print("|");
+                else if((j == 2 && i == 1) || (j == cardWidth-3 && i == cardHeight-2)) //printing card attributes
+                {
+                    int k = hand.get(currCard-1);
+                    if(k == 1)
+                    {
+                        System.out.print("A");
+                    }
+                    else if(k == 11)
+                    {
+                        System.out.print("J");
+                    }
+                    else if(k == 12)
+                    {
+                        System.out.print("Q");
+                    }
+                    else if(k == 13)
+                    {
+                        System.out.print("K");
+                    }
+                    else 
+                    {
+                        System.out.print(k);
+                    }  
+                }
+                else
+                    System.out.print(" "); //empty portions of card
+
+
+                j++;
+
+                if(j == cardWidth && currCard < hand.size())
+                {
+                    j = 0;
+                    currCard++;
+                }
+            }
+
+            System.out.println();
+            i++;
+            j = 0;
+            currCard = 1;
+        }
+        
+    }
+
+    /* 
     public void displayHand()
     {
         System.out.print("Hand: ");
 
         for(int i = 0; i < hand.size(); i ++)
         {
-            int k = hand.get(i);
-            if(k == 1)
-            {
-                System.out.print("ACE, ");
-            }
-            else if(k == 11)
-            {
-                System.out.print("JACK, ");
-            }
-            else if(k == 12)
-            {
-                System.out.print("QUEEN, ");
-            }
-            else if(k == 13)
-            {
-                System.out.print("KING, ");
-            }
-            else 
-            {
-                System.out.print(k + ", ");
-            }
+            
         }
     }
+    */
 
     public void displayPoints()
     {
         System.out.print("Points: ");
-        System.out.println(pointCount);
+        System.out.println(pointCount + "\n");
     }
 
     public int getPoints()

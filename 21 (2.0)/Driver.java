@@ -14,6 +14,7 @@ public class Driver
     private static TestRand test;
 
     //////////////////////////////////////////////////
+    private static Scanner in;
     private static Player p1; //player object
     private static Dealer cpu; //dealer object
     private static boolean roundOver; //judges each round
@@ -28,7 +29,7 @@ public class Driver
 
     public static void main(String[] arg)
     {
-        //newGame();
+        in = new Scanner(System.in);
         deck = new Deck();
         p1 = new Player();
         cpu = new Dealer();
@@ -42,7 +43,7 @@ public class Driver
             }
             newRound();
         }
-        
+        in.close();
         
     }
     
@@ -78,7 +79,6 @@ public class Driver
 
     public static void gameCheck()
     {
-        Scanner in = new Scanner(System.in);
         System.out.println();
         p1.printMoney();
         System.out.println("Do you want to play another round? (Y/N)");
@@ -93,7 +93,6 @@ public class Driver
             gameOver = true;
         }
         
-        in.close();
     }
 
     public static void pointTracker(boolean player)//true tracks player, while false tracks cpu, win condtions are tracked during cpu tracking
