@@ -10,17 +10,21 @@ import java.util.*;
  */
 public class Driver
 {
-    /////////////////////////////////////////////////
-    private static TestRand test;
 
-    //////////////////////////////////////////////////
     private static Scanner in;
     private static Player p1; //player object
     private static Dealer cpu; //dealer object
     private static boolean roundOver; //judges each round
     private static boolean gameOver; //tells if overall game is complete
     private static int reward;
-    private static Deck deck; //the record of cards left
+    private static Deck deck; //need this to initialize deck which is static
+    private static enum GameType {
+        TwentyOne, //twenty one
+        Poker,
+        GoFish
+    }
+    private static GameType currGameType;
+    
 
     public Driver()
     {
@@ -30,6 +34,7 @@ public class Driver
     public static void main(String[] arg)
     {
         in = new Scanner(System.in);
+        getGameType();
         deck = new Deck();
         p1 = new Player();
         cpu = new Dealer();
@@ -44,6 +49,21 @@ public class Driver
             newRound();
         }
         in.close();
+        
+    }
+
+    public static void getGameType() 
+    {
+        System.out.println("Select a game type.");
+        for(GameType type : GameType.values())
+        {
+            System.out.println(type);
+        }
+        try {
+            currGameType = GameType.valueOf(in.nextLine());
+        } catch (Exception e) {
+            System.out.println("Something went wrong.");
+        }
         
     }
     
@@ -63,7 +83,7 @@ public class Driver
             System.out.println("Total Pool is " + reward);
             while(!roundOver && p1.hit()) //player draw loop, breaks when told to or points > 21
             {                
-                pointTracker(true);
+                pointTracker21(true);
             }
         }
         
@@ -72,12 +92,12 @@ public class Driver
             while(roundOver == false) //cpu draw loop, breaks when told to or points > 21
             {
                 cpu.hit(p1.getPoints());
-                pointTracker(false);
+                pointTracker21(false);
             }
         }
     }
 
-    public static void gameCheck()
+    public static void gameCheck() //works for both
     {
         System.out.println();
         p1.printMoney();
@@ -95,7 +115,7 @@ public class Driver
         
     }
 
-    public static void pointTracker(boolean player)//true tracks player, while false tracks cpu, win condtions are tracked during cpu tracking
+    public static void pointTracker21(boolean player)//true tracks player, while false tracks cpu, win condtions are tracked during cpu tracking
     {
         if(player)
         {

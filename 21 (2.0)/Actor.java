@@ -14,7 +14,7 @@ public class Actor
     
     public void display(Object z) //whoever we are displaying for
     {
-        System.out.println(z+" ");
+        System.out.println(z.toString().toUpperCase());
         displayHand();
         displayPoints();
     }
@@ -74,18 +74,6 @@ public class Actor
         }
         
     }
-
-    /* 
-    public void displayHand()
-    {
-        System.out.print("Hand: ");
-
-        for(int i = 0; i < hand.size(); i ++)
-        {
-            
-        }
-    }
-    */
 
     public void displayPoints()
     {
