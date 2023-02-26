@@ -34,7 +34,7 @@ public class Driver
     public static void main(String[] arg)
     {
         in = new Scanner(System.in);
-        getGameType();
+        //getGameType();
         deck = new Deck();
         p1 = new Player();
         cpu = new Dealer();
