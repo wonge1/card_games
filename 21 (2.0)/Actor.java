@@ -5,7 +5,7 @@ import java.util.*;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Actor
+public abstract class Actor
 {
     // instance variables - replace the example below with your own
     public int pointCount = 0;
