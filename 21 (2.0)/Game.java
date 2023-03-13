@@ -16,4 +16,18 @@ public abstract class Game {
     public void turn(boolean player){
 
     }
+
+    public void run()
+    {
+        
+    }
+
+    /*while(gameOver == false)
+        {
+            while(roundOver == false)
+            {
+                game();
+            }
+            newRound();
+        } */
 }

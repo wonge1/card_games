@@ -14,8 +14,6 @@ public class Driver
     private static Scanner in;
     private static Player p1; //player object
     private static Dealer cpu; //dealer object
-    private static boolean roundOver; //judges each round
-    private static boolean gameOver; //tells if overall game is complete
     private static int reward;
     private static Deck deck; //need this to initialize deck which is static
     private static enum GameType {
@@ -24,6 +22,7 @@ public class Driver
         GoFish
     }
     private static GameType currGameType;
+    private static Game game;
     
 
     public Driver()
@@ -34,20 +33,15 @@ public class Driver
     public static void main(String[] arg)
     {
         in = new Scanner(System.in);
-        //getGameType();
         deck = new Deck();
         p1 = new Player();
         cpu = new Dealer();
-        roundOver = false;
-        gameOver = false;
-        while(gameOver == false)
+        getGameType();
+        if(currGameType == GameType.TwentyOne)
         {
-            while(roundOver == false)
-            {
-                game();
-            }
-            newRound();
+            game = new TwentyOne();
         }
+        game.run();
         in.close();
         
     }

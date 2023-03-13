@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.util.*;
 
-public class TwentyOne {
+public class TwentyOne extends Game{
     private Scanner in;
     private Player p1; //player object
     private Dealer cpu; //dealer object
