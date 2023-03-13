@@ -2,17 +2,10 @@ import java.awt.*;
 import java.util.*;
 
 public class TwentyOne extends Game{
-    private Scanner in;
-    private Player p1; //player object
-    private Dealer cpu; //dealer object
-    private boolean roundOver; //judges each round
-    private boolean gameOver; //tells if overall game is complete
-    private int reward;
-    
 
-    public TwentyOne()
+    public TwentyOne(Player player, Dealer comp, Scanner scan)
     {
-        
+        super(player, comp, scan);
     }
 
     public void turn(boolean player)
