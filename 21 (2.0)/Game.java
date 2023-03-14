@@ -15,9 +15,9 @@ public abstract class Game {
         in = scan;
     }
     
-    public abstract void game(); 
-    
-    public abstract void turn(boolean player);
+    public abstract void game(); //content to be looped
+
+    public abstract void turn(boolean player); //what each person will do
 
     public void run() {
         while(gameOver == false) {
