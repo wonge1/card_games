@@ -46,7 +46,7 @@ public class Driver {
         }
         while (!validInput) {
             try {
-                int response = in.nextInt();
+                int response = Integer.parseInt(in.nextLine());
                 if (response > 2 || response < 0) 
                     throw new InputMismatchException();
                 validInput = true;

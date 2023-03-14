@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.util.*;
 
+import javax.sound.midi.SysexMessage;
+
 /**
  * Write a description of class Player here.
  *
@@ -30,7 +32,7 @@ public class Player extends Actor
             System.out.println("Current Money: " + money);
             System.out.println("How much money do you want to bet?");
             try {
-                i = in.nextInt();//returns the amount intended to bet
+                i = Integer.parseInt(in.nextLine());//returns the amount intended to bet
                 if(i <= money) {
                     money = money - i;
                     validInput = true;
@@ -47,16 +49,28 @@ public class Player extends Actor
     public void addMoney(int amountWon) {money = money + amountWon;}
 
     public boolean hit() {
+        boolean validInput = false;
+        String response = "";
         System.out.println("Do you want another card? (Y/N)");
         System.out.println();
-        String response = in.nextLine();
-
-        if(response.equals("y") || response.equals("Y")) {
-            newCard();           
-            return true;
+        while (!validInput) {
+            try {
+                response = in.nextLine();
+                if(response.equals("y") || response.equals("Y")) {
+                    newCard();        
+                    validInput = true;   
+                    return true;
+                } else if(response.equals("n") || response.equals("N")) {
+                    validInput = true;   
+                    return false;
+                } 
+                else {throw new Exception();}
+            } catch (Exception e) {
+                System.out.println("Invalid Input");
+            }
         }
-        else
-            return false;
+        System.out.println("PLAYER LINE 72, THIS SHOULD NEVER HAPPEN");
+        return validInput;
     }
 
 }
