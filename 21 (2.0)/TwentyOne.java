@@ -18,8 +18,8 @@ public class TwentyOne extends Game {
         
         if(!player) {
             while(roundOver == false) {//cpu draw loop, breaks when told to or points > 21
-                cpu.hit(p1.getPoints());
-                pointTracker21(false);
+                if (!cpu.hit())
+                    pointTracker21(false);
             }
         }
     }
@@ -37,16 +37,14 @@ public class TwentyOne extends Game {
         else {
             cpu.hasAce();//checks for aces in the hand and then checks score to evaluate worth of aces
             cpu.display("Dealer");//shows dealer hand and points
-            if(p1.getPoints() < cpu.getPoints() && cpu.getPoints() <= 21) {//win/lose condition
-                System.out.println();
-                System.out.println("GAME OVER YOU LOSE");
-                gameCheck();
-
-            }
-            else if(cpu.getPoints() > 21) {
+            if(cpu.getPoints() > 21 || p1.getPoints() >= cpu.getPoints()) {
                 System.out.println();
                 System.out.println("YOU WIN");
                 p1.addMoney(reward*2);
+                gameCheck();
+            } else {
+                System.out.println();
+                System.out.println("GAME OVER YOU LOSE");
                 gameCheck();
             }
         }

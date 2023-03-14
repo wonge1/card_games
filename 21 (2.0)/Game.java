@@ -29,17 +29,29 @@ public abstract class Game {
     }
 
     public void gameCheck() {//works for both
-        System.out.println();
-        p1.printMoney();
-        System.out.println("Do you want to play another round? (Y/N)");
-        String response = in.nextLine();
-        if(response.equals("Y") || response.equals("y")) {
-            roundOver = true;
+        boolean validInput = false;
+        while (!validInput) {
+            try {
+                System.out.println();
+                p1.printMoney();
+                System.out.println("Do you want to play another round? (Y/N)");
+                String response = in.nextLine();
+                if(response.equals("Y") || response.equals("y")) {
+                    roundOver = true;
+                    validInput = true;
+                }
+                else if(response.equals("N") || response.equals("n")) {
+                    roundOver = true;
+                    gameOver = true;
+                    validInput = true;
+                } else {
+                    throw new Exception();
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid Input");
+            }
         }
-        else if(response.equals("N") || response.equals("n")) {
-            roundOver = true;
-            gameOver = true;
-        }
+        
         
     }
 
