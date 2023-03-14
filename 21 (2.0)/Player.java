@@ -15,36 +15,29 @@ public class Player extends Actor
     /**
      * Constructor for objects of class Player
      */
-    public Player()
-    {       
-        for(int i = 0; i < 2; i ++)
-        {
+    public Player() {       
+        for(int i = 0; i < 2; i ++) {
             newCard();
         }
 
     }
 
-    public int betAmount()
-    {
+    public int betAmount() {
         boolean valid = false;
         Scanner in = new Scanner(System.in);
         System.out.println("Current Money: " + money);
         System.out.println("How much money do you want to bet?");
         int i = in.nextInt();//returns the amount intended to bet
-        while(!valid)
-        {
-            if(i <= money)
-            {
+        while(!valid) {
+            if(i <= money) {
                 money = money - i;
                 valid = true;
 
             }
-            else
-            {
+            else {
                 System.out.println("Invalid Amount \nCurrent Money: " + money);
                 System.out.println("How much money do you want to bet?");
                 i = in.nextInt();
-                
             }
 
         }
@@ -52,37 +45,22 @@ public class Player extends Actor
 
     }
     
-    public void printMoney()
-    {
-        System.out.println("Current Money: " + money);
-        
-    }
+    public void printMoney() {System.out.println("Current Money: " + money);}
 
-    public void addMoney(int amountWon)
-    {
-        money = money + amountWon;
+    public void addMoney(int amountWon) {money = money + amountWon;}
 
-    }
-
-    public boolean hit()
-    {
+    public boolean hit() {
         Scanner in = new Scanner(System.in);
         System.out.println("Do you want another card? (Y/N)");
         System.out.println();
         String response = in.nextLine();
 
-        if(response.equals("y") || response.equals("Y"))
-        {
+        if(response.equals("y") || response.equals("Y")) {
             newCard();           
             return true;
         }
         else
-        {
             return false;
-        }
-
-        
-        
     }
 
 }

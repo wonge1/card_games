@@ -12,15 +12,13 @@ public abstract class Actor
     public ArrayList<Integer>hand = new ArrayList<Integer>();
     public int aceAmount = 0;
     
-    public void display(Object z) //whoever we are displaying for
-    {
+    public void display(Object z) {//whoever we are displaying for
         System.out.println(z.toString().toUpperCase());
         displayHand();
         displayPoints();
     }
 
-    public void displayHand()
-    {
+    public void displayHand() {
         //car dimensions
         int cardWidth = 10;
         int cardHeight = 8;
@@ -31,16 +29,13 @@ public abstract class Actor
         int j = 0; //row determinate
 
         //try and figure out a way to avoid manipulating for loop variable outside of loop
-        while(i < cardHeight)
-        {
-            while(j < cardWidth) 
-            {
+        while(i < cardHeight) {
+            while(j < cardWidth)  {
                 if((i == 0 || i == cardHeight-1) && j > 0 && j < cardWidth-1) //top and bottom of card, leaving corners blank
                     System.out.print("-");
                 else if((j == 0 || j == cardWidth-1) && i > 0 && i < cardHeight-1) //printing sides
                     System.out.print("|");
-                else if((j == 2 && i == 1) || (j == cardWidth-3 && i == cardHeight-2)) //printing card attributes
-                {
+                else if((j == 2 && i == 1) || (j == cardWidth-3 && i == cardHeight-2)) {//printing card attributes
                     int k = hand.get(currCard-1);
                     if(k == 1)
                         System.out.print("A");
@@ -60,8 +55,7 @@ public abstract class Actor
 
                 j++;
 
-                if(j == cardWidth && currCard < hand.size())
-                {
+                if(j == cardWidth && currCard < hand.size()) {
                     j = 0;
                     currCard++;
                 }
@@ -75,19 +69,14 @@ public abstract class Actor
         
     }
 
-    public void displayPoints()
-    {
+    public void displayPoints() {
         System.out.print("Points: ");
         System.out.println(pointCount + "\n");
     }
 
-    public int getPoints()
-    {
-        return pointCount;
-    }
+    public int getPoints() {return pointCount;}
 
-    public void reset()
-    {
+    public void reset() {
         pointCount = 0;
         aceAmount = 0;
         hand.clear();
@@ -95,32 +84,23 @@ public abstract class Actor
         newCard();
     }
 
-    public void newCard()
-    {
+    public void newCard() {
         int card = Deck.deal();
-        if(card < 11)
-        {
-            if(card == 1)
-            {
+        if(card < 11) {
+            if(card == 1) {
                 pointCount = pointCount + 11;
                 aceAmount++;
             }
             else 
-            {
                 pointCount = pointCount + card;
-            }
         }
         else
-        {
             pointCount = pointCount + 10;
-        }
         hand.add(card);
     }
     
-    public void hasAce()
-    {
-        while(pointCount > 21 && aceAmount > 0) //game adjusts points based on aces and score
-        {
+    public void hasAce() {
+        while(pointCount > 21 && aceAmount > 0) {//game adjusts points based on aces and score
             aceAmount--;
             pointCount = pointCount - 10;
         }

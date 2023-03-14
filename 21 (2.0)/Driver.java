@@ -8,12 +8,10 @@ import java.util.*;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Driver
-{
+public class Driver {
     private static Scanner in;
     private static Player p1; //player object
     private static Dealer cpu; //dealer object
-    private static int reward;
     private static Deck deck; //need this to initialize deck which is static
     private static enum GameType {
         TwentyOne, //twenty one
@@ -24,20 +22,13 @@ public class Driver
     private static Game game;
     
 
-    public Driver()
-    {
-        
-    }
-
-    public static void main(String[] arg)
-    {
+    public static void main(String[] arg) {
         in = new Scanner(System.in);
         deck = new Deck();
         p1 = new Player();
         cpu = new Dealer();
         getGameType();
-        if(currGameType == GameType.TwentyOne)
-        {
+        if(currGameType == GameType.TwentyOne) {
             game = new TwentyOne(p1, cpu, in);
         }
         game.run();
@@ -45,17 +36,18 @@ public class Driver
         
     }
 
-    public static void getGameType() 
-    {
+    public static void getGameType() {
+        int counter = 0;
         System.out.println("Select a game type.");
-        for(GameType type : GameType.values())
-        {
-            System.out.println(type);
+        for(GameType type : GameType.values()) {
+            System.out.println(counter + ": " + type);
+            counter++;
         }
-        try {
-            currGameType = GameType.valueOf(in.nextLine());
-        } catch (Exception e) {
-            System.out.println("Something went wrong.");
+
+        int response = in.nextInt();
+        switch (response) {
+            case 0: currGameType = GameType.TwentyOne;
+                break;
         }
         
     }
