@@ -12,7 +12,6 @@ public class TwentyOne extends Game {
             reward = p1.betAmount();//check for bet
             System.out.println("Total Pool is " + reward);
             while(!roundOver && p1.hit()) {//player draw loop, breaks when told to or points > 21
-        
                 pointTracker21(true);
             }
         }
@@ -23,20 +22,6 @@ public class TwentyOne extends Game {
                 pointTracker21(false);
             }
         }
-    }
-
-    public void gameCheck() {//works for both
-        System.out.println();
-        p1.printMoney();
-        System.out.println("Do you want to play another round? (Y/N)");
-        String response = in.nextLine();
-        if(response.equals("Y") || response.equals("y")) {
-            roundOver = true;
-        }
-        else if(response.equals("N") || response.equals("n")) {
-            roundOver = true;
-            gameOver = true;
-        } 
     }
 
     public void pointTracker21(boolean player) {//true tracks player, while false tracks cpu, win condtions are tracked during cpu tracking
