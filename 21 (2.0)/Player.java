@@ -9,40 +9,37 @@ import java.util.*;
  */
 public class Player extends Actor
 {
+    private Scanner in;
     // instance variables - replace the example below with your own
     public int money = 10000;
 
     /**
      * Constructor for objects of class Player
      */
-    public Player() {       
+    public Player(Scanner scan) {       
+        in = scan;
         for(int i = 0; i < 2; i ++) {
             newCard();
         }
-
     }
 
     public int betAmount() {
-        boolean valid = false;
-        Scanner in = new Scanner(System.in);
-        System.out.println("Current Money: " + money);
-        System.out.println("How much money do you want to bet?");
-        int i = in.nextInt();//returns the amount intended to bet
-        while(!valid) {
-            if(i <= money) {
-                money = money - i;
-                valid = true;
-
+        boolean validInput = false;
+        int i = -1;
+        while(!validInput) {
+            System.out.println("Current Money: " + money);
+            System.out.println("How much money do you want to bet?");
+            try {
+                i = in.nextInt();//returns the amount intended to bet
+                if(i <= money) {
+                    money = money - i;
+                    validInput = true;
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid Input");
             }
-            else {
-                System.out.println("Invalid Amount \nCurrent Money: " + money);
-                System.out.println("How much money do you want to bet?");
-                i = in.nextInt();
-            }
-
         }
         return i;
-
     }
     
     public void printMoney() {System.out.println("Current Money: " + money);}
@@ -50,7 +47,6 @@ public class Player extends Actor
     public void addMoney(int amountWon) {money = money + amountWon;}
 
     public boolean hit() {
-        Scanner in = new Scanner(System.in);
         System.out.println("Do you want another card? (Y/N)");
         System.out.println();
         String response = in.nextLine();

@@ -25,7 +25,7 @@ public class Driver {
     public static void main(String[] arg) {
         in = new Scanner(System.in);
         deck = new Deck();
-        p1 = new Player();
+        p1 = new Player(in);
         cpu = new Dealer();
         getGameType();
         if(currGameType == GameType.TwentyOne) {
@@ -37,18 +37,28 @@ public class Driver {
     }
 
     public static void getGameType() {
+        boolean validInput = false;
         int counter = 0;
         System.out.println("Select a game type.");
         for(GameType type : GameType.values()) {
             System.out.println(counter + ": " + type);
             counter++;
         }
-
-        int response = in.nextInt();
-        switch (response) {
-            case 0: currGameType = GameType.TwentyOne;
-                break;
+        while (!validInput) {
+            try {
+                int response = in.nextInt();
+                if (response > 2 || response < 0) 
+                    throw new InputMismatchException();
+                validInput = true;
+                switch (response) {
+                    case 0: currGameType = GameType.TwentyOne;
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input please try again.");
+            }
         }
+        
         
     }
 }
