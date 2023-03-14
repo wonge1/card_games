@@ -20,10 +20,9 @@ public class Dealer extends Actor
         
     }
     
-    public boolean hit(int playerPoint)
+    public boolean hit()
     {
-        int i = playerPoint;
-        if(this.getPoints() <= i)
+        if(this.getPoints() <= 16)
         {
             this.newCard();
             System.out.println();
