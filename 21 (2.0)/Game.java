@@ -15,13 +15,8 @@ public abstract class Game {
         in = scan;
     }
     
-    public void game() {
-        cpu.display("Dealer");
-        p1.display("Player");
-        turn(true); //players turn
-        turn(false); //cpu turn
-    }
-
+    public abstract void game(); 
+    
     public abstract void turn(boolean player);
 
     public void run() {

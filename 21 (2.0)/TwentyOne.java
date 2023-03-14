@@ -67,17 +67,10 @@ public class TwentyOne extends Game {
         }
     }
 
-    public void newRound() {
-        p1.reset();
-        cpu.reset();
-        roundOver = false;
-
-    }
-
-    public void newGame() {
-        p1.reset();
-        cpu.reset();
-        roundOver = false;
-        gameOver = false;
+    public void game() {//game running that will be looped
+        cpu.display("Dealer");
+        p1.display("Player");
+        turn(true); //players turn
+        turn(false); //cpu turn
     }
 }
