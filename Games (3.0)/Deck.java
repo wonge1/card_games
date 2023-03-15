@@ -30,18 +30,6 @@ public class Deck
         }
     }
     
-    public void display()
-    {
-        /*
-        for(int j = 0; j < deck.size(); j++)//making the deck
-        {
-            System.out.print(deck.get(j)+" ");
-        }
-        System.out.println();
-        */
-        System.out.print(deck.size());
-    }
-
     public static int deal()//simulates removing a card from the initial deck
     {
         int ret = deck.remove((int)(Math.random()*deck.size()));//drawing the card

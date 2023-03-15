@@ -8,14 +8,11 @@ import java.util.*;
 public abstract class Actor
 {
     // instance variables - replace the example below with your own
-    public int pointCount = 0;
-    public ArrayList<Integer>hand = new ArrayList<Integer>();
-    public int aceAmount = 0;
+    protected ArrayList<Integer> hand = new ArrayList<Integer>();
     
     public void display(Object z) {//whoever we are displaying for
         System.out.println(z.toString().toUpperCase());
         displayHand();
-        displayPoints();
     }
 
     public void displayHand() {
@@ -69,42 +66,17 @@ public abstract class Actor
         
     }
 
-    public void displayPoints() {
-        System.out.print("Points: ");
-        System.out.println(pointCount + "\n");
-    }
-
-    public int getPoints() {return pointCount;}
-
     public void reset() {
-        pointCount = 0;
-        aceAmount = 0;
         hand.clear();
-        newCard();
-        newCard();
     }
 
     public void newCard() {
         int card = Deck.deal();
-        if(card < 11) {
-            if(card == 1) {
-                pointCount = pointCount + 11;
-                aceAmount++;
-            }
-            else 
-                pointCount = pointCount + card;
-        }
-        else
-            pointCount = pointCount + 10;
         hand.add(card);
     }
+
+    public ArrayList<Integer> getHand() {return hand;}
     
-    public void hasAce() {
-        while(pointCount > 21 && aceAmount > 0) {//game adjusts points based on aces and score
-            aceAmount--;
-            pointCount = pointCount - 10;
-        }
-    }
 }
 
 
