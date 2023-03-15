@@ -113,8 +113,6 @@ public class TwentyOne extends Game {
 
         cpu.reset();
         cpu.newCard();
-        cpu.newCard();
         roundOver = false;
-
     }
 }

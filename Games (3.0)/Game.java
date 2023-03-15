@@ -21,10 +21,10 @@ public abstract class Game {
 
     public void run() {
         while(gameOver == false) {
+            newRound();
             while(roundOver == false) {
                 game();
             }
-            newRound();
         }
     }
 

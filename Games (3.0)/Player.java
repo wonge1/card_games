@@ -18,9 +18,6 @@ public class Player extends Actor
      */
     public Player(Scanner scan) {       
         in = scan;
-        for(int i = 0; i < 2; i ++) {
-            newCard();
-        }
     }
 
     public int betAmount() {

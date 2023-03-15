@@ -6,15 +6,5 @@
  */
 public class Dealer extends Actor
 {
-    // instance variables - replace the example below with your own
-    /**
-     * Constructor for objects of class Dealer
-     */
-    public Dealer()
-    {
-        newCard();
-        newCard();
-        
-    }
-   
+    
 }
