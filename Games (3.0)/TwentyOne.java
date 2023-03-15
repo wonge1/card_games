@@ -11,15 +11,16 @@ public class TwentyOne extends Game {
         if(player) {
             reward = p1.betAmount();//check for bet
             System.out.println("Total Pool is " + reward);
-            while(!roundOver && p1.hit()) {//player draw loop, breaks when told to or points > 21
+            while(!roundOver && hit(p1)) {//player draw loop, breaks when told to or points > 21
                 pointTracker21(true);
             }
         }
         
         if(!player) {
             while(roundOver == false) {//cpu draw loop, breaks when told to or points > 21
-                if (!cpu.hit())
-                    pointTracker21(false);
+                if (checkPoints(cpu) <= 16) 
+                    cpu.newCard();         
+                pointTracker21(false);
             }
         }
     }
@@ -78,5 +79,54 @@ public class TwentyOne extends Game {
         }
         
         return points;
+    }
+
+    public boolean hit(Actor player) {
+        boolean validInput = false;
+        String response = "";
+        System.out.println("Do you want another card? (Y/N)");
+        System.out.println();
+        while (!validInput) {
+            try {
+                response = in.nextLine();
+                if(response.equals("y") || response.equals("Y")) {
+                    player.newCard();        
+                    validInput = true;   
+                    return true;
+                } else if(response.equals("n") || response.equals("N")) {
+                    validInput = true;   
+                    return false;
+                } 
+                else {throw new Exception();}
+            } catch (Exception e) {
+                System.out.println("Invalid Input");
+            }
+        }
+        System.out.println("THIS SHOULD NEVER HAPPEN");
+        return validInput;
+    }
+
+    public void newRound() {
+        p1.reset();
+        p1.newCard();
+        p1.newCard();
+
+        cpu.reset();
+        cpu.newCard();
+        cpu.newCard();
+        roundOver = false;
+
+    }
+
+    public void newGame() {
+        p1.reset();
+        p1.newCard();
+        p1.newCard();
+
+        cpu.reset();
+        cpu.newCard();
+        cpu.newCard();
+        roundOver = false;
+        gameOver = false;
     }
 }

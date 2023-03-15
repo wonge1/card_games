@@ -55,17 +55,7 @@ public abstract class Game {
         
     }
 
-    public void newRound() {
-        p1.reset();
-        cpu.reset();
-        roundOver = false;
+    public abstract void newRound();
 
-    }
-
-    public void newGame() {
-        p1.reset();
-        cpu.reset();
-        roundOver = false;
-        gameOver = false;
-    }
+    public abstract void newGame();
 }

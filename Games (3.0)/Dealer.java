@@ -1,4 +1,3 @@
-import java.util.*;
 /**
  * Write a description of class Dealer here.
  *
@@ -8,8 +7,6 @@ import java.util.*;
 public class Dealer extends Actor
 {
     // instance variables - replace the example below with your own
-    
-    
     /**
      * Constructor for objects of class Dealer
      */
@@ -18,17 +15,6 @@ public class Dealer extends Actor
         newCard();
         newCard();
         
-    }
-    
-    public boolean hit()
-    {
-        if(this.getPoints() <= 16)
-        {
-            this.newCard();
-            System.out.println();
-            return true;
-        }       
-        return false;
     }
    
 }

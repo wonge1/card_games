@@ -48,29 +48,6 @@ public class Player extends Actor
 
     public void addMoney(int amountWon) {money = money + amountWon;}
 
-    public boolean hit() {
-        boolean validInput = false;
-        String response = "";
-        System.out.println("Do you want another card? (Y/N)");
-        System.out.println();
-        while (!validInput) {
-            try {
-                response = in.nextLine();
-                if(response.equals("y") || response.equals("Y")) {
-                    newCard();        
-                    validInput = true;   
-                    return true;
-                } else if(response.equals("n") || response.equals("N")) {
-                    validInput = true;   
-                    return false;
-                } 
-                else {throw new Exception();}
-            } catch (Exception e) {
-                System.out.println("Invalid Input");
-            }
-        }
-        System.out.println("PLAYER LINE 72, THIS SHOULD NEVER HAPPEN");
-        return validInput;
-    }
+    
 
 }

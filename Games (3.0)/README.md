@@ -6,4 +6,4 @@ To Do / Ideas List
 
 2. look up heart alt code
 
-3. Actor and player still have 21 specific content.
+3. Dealer has 1 card face up, one face down
