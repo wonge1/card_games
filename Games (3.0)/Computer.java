@@ -4,7 +4,7 @@
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Dealer extends Actor
+public class Computer extends Actor
 {
-    
+
 }

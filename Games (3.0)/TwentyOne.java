@@ -3,7 +3,7 @@ import java.util.*;
 
 public class TwentyOne extends Game {
 
-    public TwentyOne(Player player, Dealer comp, Scanner scan) {
+    public TwentyOne(Player player, Computer comp, Scanner scan) {
         super(player, comp, scan);
     }
 

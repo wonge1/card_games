@@ -3,13 +3,13 @@ import java.util.*;
 
 public abstract class Game {
     protected Player p1; //player object
-    protected Dealer cpu; //dealer object
+    protected Computer cpu; //comp object
     protected boolean roundOver = false; //judges each round
     protected boolean gameOver = false; //tells if overall game is complete
     protected int reward;
     protected Scanner in;
 
-    public Game(Player player, Dealer comp, Scanner scan)  {
+    public Game(Player player, Computer comp, Scanner scan)  {
         p1 = player;
         cpu = comp;
         in = scan;

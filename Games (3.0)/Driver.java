@@ -11,7 +11,7 @@ import java.util.*;
 public class Driver {
     private static Scanner in;
     private static Player p1; //player object
-    private static Dealer cpu; //dealer object
+    private static Computer cpu; //comp object
     private static Deck deck; //need this to initialize deck which is static
     private static enum GameType {
         TwentyOne, //twenty one
@@ -26,7 +26,7 @@ public class Driver {
         in = new Scanner(System.in);
         deck = new Deck();
         p1 = new Player(in);
-        cpu = new Dealer();
+        cpu = new Computer();
         getGameType();
         if(currGameType == GameType.TwentyOne) {
             game = new TwentyOne(p1, cpu, in);
