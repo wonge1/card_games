@@ -1,4 +1,4 @@
-import java.awt.*;
+
 import java.util.*;
 
 public class TwentyOne extends Game {
@@ -116,17 +116,5 @@ public class TwentyOne extends Game {
         cpu.newCard();
         roundOver = false;
 
-    }
-
-    public void newGame() {
-        p1.reset();
-        p1.newCard();
-        p1.newCard();
-
-        cpu.reset();
-        cpu.newCard();
-        cpu.newCard();
-        roundOver = false;
-        gameOver = false;
     }
 }

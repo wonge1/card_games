@@ -57,5 +57,5 @@ public abstract class Game {
 
     public abstract void newRound();
 
-    public abstract void newGame();
+    //public abstract void newGame();
 }
