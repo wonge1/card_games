@@ -17,10 +17,10 @@ public class TwentyOne extends Game {
         }
         
         if(!player) {
-            while(roundOver == false) {//cpu draw loop, breaks when told to or points > 21
-                if (checkPoints(cpu) <= 16) 
+            if(roundOver == false) { //check if player already busted
+                while (checkPoints(cpu) <= 16) //draw until past 16 points
                     cpu.newCard();         
-                pointTracker21(false);
+                pointTracker21(false);//checks final game state
             }
         }
     }
@@ -57,17 +57,18 @@ public class TwentyOne extends Game {
     }
     
     public int checkPoints(Actor a) {
-        ArrayList<Integer> hand = a.getHand();
+        ArrayList<Card> hand = a.getHand();
         int points = 0;
         int acesAsEleven = 0;
-        for (Integer card : hand) {
-            if(card < 11) { //if not face card
-                if(card == 1) {
+        for (Card card : hand) {
+            int cardValue = card.getValue();
+            if(cardValue < 11) { //if not face card
+                if(cardValue == 1) {
                     points = points + 11;
                     acesAsEleven++;
                 }
                 else 
-                    points = points + card;
+                    points = points + cardValue;
             }
             else //facecard
                 points = points + 10;

@@ -8,7 +8,7 @@ import java.util.*;
 public abstract class Actor
 {
     // instance variables - replace the example below with your own
-    protected ArrayList<Integer> hand = new ArrayList<Integer>();
+    protected ArrayList<Card> hand = new ArrayList<Card>();
     
     public void display(Object z) {//whoever we are displaying for
         System.out.println(z.toString().toUpperCase());
@@ -33,7 +33,8 @@ public abstract class Actor
                 else if((j == 0 || j == cardWidth-1) && i > 0 && i < cardHeight-1) //printing sides
                     System.out.print("|");
                 else if((j == 2 && i == 1) || (j == cardWidth-3 && i == cardHeight-2)) {//printing card attributes
-                    int k = hand.get(currCard-1);
+                    Card card = hand.get(currCard-1);
+                    int k = card.getValue();
                     if(k == 1)
                         System.out.print("A");
                     else if(k == 11)
@@ -71,11 +72,11 @@ public abstract class Actor
     }
 
     public void newCard() {
-        int card = Deck.deal();
+        Card card = Deck.deal();
         hand.add(card);
     }
 
-    public ArrayList<Integer> getHand() {return hand;}
+    public ArrayList<Card> getHand() {return hand;}
     
 }
 

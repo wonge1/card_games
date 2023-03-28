@@ -23,6 +23,14 @@ public class Driver {
     
 
     public static void main(String[] arg) {
+        /*
+        Card test = new Card(1,3);
+        for(int i = 0; i <= 127; i++)
+        {
+            System.out.printf("%d : %c | ", i, i);
+        }
+        */
+        
         in = new Scanner(System.in);
         deck = new Deck();
         p1 = new Player(in);

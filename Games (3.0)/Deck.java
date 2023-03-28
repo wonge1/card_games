@@ -8,13 +8,12 @@ import java.util.*;
  */
 public class Deck
 {
-    // instance variables - replace the example below with your own
-    private static ArrayList<Integer>deck = new ArrayList<Integer>();
+    //private static ArrayList<Integer>deck = new ArrayList<Integer>();
+    private static ArrayList<Card>deck = new ArrayList<Card>();
 
     public Deck()
     {
         reset();
-        //System.out.println(deck.size());
         //Player p1 = new Player();
     }
 
@@ -25,14 +24,14 @@ public class Deck
         {
             for(int i = 1; i <= 13; i++)
             {
-                deck.add(i);
+                deck.add(new Card(i, j+3));
             }
         }
     }
     
-    public static int deal()//simulates removing a card from the initial deck
+    public static Card deal()//simulates removing a card from the initial deck
     {
-        int ret = deck.remove((int)(Math.random()*deck.size()));//drawing the card
+        Card ret = deck.remove((int)(Math.random()*deck.size()));//drawing the card
         return ret;
     }
 }
