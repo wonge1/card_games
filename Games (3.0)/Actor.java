@@ -28,12 +28,12 @@ public abstract class Actor
         //try and figure out a way to avoid manipulating for loop variable outside of loop
         while(i < cardHeight) {
             while(j < cardWidth)  {
+                Card card = hand.get(currCard-1);
                 if((i == 0 || i == cardHeight-1) && j > 0 && j < cardWidth-1) //top and bottom of card, leaving corners blank
                     System.out.print("-");
                 else if((j == 0 || j == cardWidth-1) && i > 0 && i < cardHeight-1) //printing sides
                     System.out.print("|");
-                else if((j == 2 && i == 1) || (j == cardWidth-3 && i == cardHeight-2)) {//printing card attributes
-                    Card card = hand.get(currCard-1);
+                else if((j == 2 && i == 1) || (j == cardWidth-3 && i == cardHeight-2)) {//printing card numbers
                     int k = card.getValue();
                     if(k == 1)
                         System.out.print("A");
@@ -47,6 +47,9 @@ public abstract class Actor
                         System.out.print("T");
                     else 
                         System.out.print(k);
+                } 
+                else if((j == cardWidth-3 && i == 1) || (j == 2 && i == cardHeight-2)){ 
+                    System.out.printf("%c", card.getSuite());
                 }
                 else
                     System.out.print(" "); //empty portions of card
