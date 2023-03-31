@@ -80,6 +80,26 @@ public abstract class Actor
     }
 
     public ArrayList<Card> getHand() {return hand;}
+
+    public int cardValueCount(int value) { //give total cards that match a given value
+        int toReturn = 0;
+        for (Card card : hand) {   
+            if (card.getValue() == value) {
+                toReturn ++;
+            }
+        }
+        return toReturn;
+    }
+
+    public int cardSuiteCount(int value) { //give total cards that match a given value
+        int toReturn = 0;
+        for (Card card : hand) {
+            if (card.getSuite() == value) {
+                toReturn ++;
+            }
+        }
+        return toReturn;
+    }
     
 }
 

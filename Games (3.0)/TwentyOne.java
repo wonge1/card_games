@@ -7,6 +7,7 @@ public class TwentyOne extends Game {
         super(player, comp, scan);
     }
 
+    @Override
     public void turn(boolean player) {
         if(player) {
             reward = p1.betAmount();//check for bet
@@ -49,6 +50,7 @@ public class TwentyOne extends Game {
         }
     }
 
+    @Override
     public void game() {//game running that will be looped
         cpu.display("Dealer");
         p1.display("Player");

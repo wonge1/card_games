@@ -38,6 +38,10 @@ public class Driver {
         getGameType();
         if(currGameType == GameType.TwentyOne) {
             game = new TwentyOne(p1, cpu, in);
+        } else if(currGameType == GameType.Poker) {
+            game = new Poker(p1, cpu, in);
+        } else if(currGameType == GameType.GoFish) {
+            
         }
         game.run();
         in.close();
