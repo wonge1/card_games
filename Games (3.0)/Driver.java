@@ -65,6 +65,8 @@ public class Driver {
                 switch (response) {
                     case 0: currGameType = GameType.TwentyOne;
                         break;
+                    case 1: currGameType = GameType.Poker;
+                        break;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input please try again.");
