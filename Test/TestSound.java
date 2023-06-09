@@ -1,29 +1,31 @@
-import javax.sound.sampled.*;
-import java.io.*;
+import java.io.File;
 
-public class TestSound implements LineListener {
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
-    public void Test() {
-        AudioListener listener = new AudioListener();
-        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(clipFile);
+public class TestSound {
+    private Clip clip;
+    private String fileName;
+    public TestSound(String fName) {
         try {
-            Clip clip = AudioSystem.getClip();
-            clip.addLineListener(listener);
-            clip.open(audioInputStream);
-            try {
-              clip.start();
-              listener.waitUntilDone();
-            } finally {
-              clip.close();
+            fileName = fName;
+            File file = new File(fileName);
+            if (file.exists()) {
+                AudioInputStream sound = AudioSystem.getAudioInputStream(file);
+                // load the sound into memory (a Clip)
+                clip = AudioSystem.getClip();
+                clip.open(sound);
+            } else {
+                throw new RuntimeException("Sound: file not found: " + file.getAbsolutePath());
             }
-        } finally {
-            audioInputStream.close();
+        } catch(Exception e) {
+            System.out.println(e);
         }
     }
 
-    public void update(LineEvent event) {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    public void play(){
+        clip.setFramePosition(0);  // Must always rewind!
+        clip.start();
     }
-
 }
