@@ -4,14 +4,13 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-public class TestSound {
+public class SoundPlayer {
     private Clip clip;
     private String fileName;
-    private File file;
-    public TestSound(String fName) {
+    public SoundPlayer(String fName) {
         try {
             fileName = fName;
-            file = new File(fileName);
+            File file = new File(fileName);
             if (file.exists()) {
                 AudioInputStream sound = AudioSystem.getAudioInputStream(file);
                 // load the sound into memory (a Clip)

@@ -75,7 +75,9 @@ public abstract class Actor
     }
 
     public void newCard() {
+        SoundPlayer sfx = new SoundPlayer("Sound/CardDraw.wav");
         Card card = Deck.deal();
+        sfx.play();
         hand.add(card);
     }
 
