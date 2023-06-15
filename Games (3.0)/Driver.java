@@ -30,7 +30,7 @@ public class Driver {
             System.out.printf("%d : %c | ", i, i);
         }
         */
-        
+        SoundPlayer bgSound = new SoundPlayer("./Sound/Music.wav");
         in = new Scanner(System.in);
         deck = new Deck();
         p1 = new Player(in);
@@ -43,9 +43,10 @@ public class Driver {
         } else if(currGameType == GameType.GoFish) {
             
         }
+        bgSound.play();
         game.run();
         in.close();
-        
+        bgSound.stop();
     }
 
     public static void getGameType() {

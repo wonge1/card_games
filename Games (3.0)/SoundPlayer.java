@@ -28,4 +28,9 @@ public class SoundPlayer {
         clip.setFramePosition(0);  // Must always rewind!
         clip.start();
     }
+
+    public void stop(){
+        clip.setFramePosition(0);
+        clip.stop();
+    }
 }
