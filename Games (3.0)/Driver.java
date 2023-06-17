@@ -30,7 +30,7 @@ public class Driver {
             System.out.printf("%d : %c | ", i, i);
         }
         */
-        SoundPlayer bgSound = new SoundPlayer("./Sound/Music.wav");
+        SoundPlayer bgSound = new SoundPlayer("Sound/Music.wav");
         in = new Scanner(System.in);
         deck = new Deck();
         p1 = new Player(in);
