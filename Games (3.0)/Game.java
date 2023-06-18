@@ -15,9 +15,15 @@ public abstract class Game {
         in = scan;
     }
     
-    public abstract void game(); //content to be looped
+    public void game() {//content to be looped
+        p1.display("Player");
+        turn(true);
+    }
 
-    public abstract void turn(boolean player); //what each person will do
+    public void turn(boolean player) {//what each person will do
+    
+
+    }
 
     public void run() {
         while(gameOver == false) {
