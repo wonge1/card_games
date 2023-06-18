@@ -10,16 +10,7 @@ public class Poker extends Game {
 
     @Override
     public void game() {//game running that will be looped
-        /* 
-        System.out.println("Before Sort");
-        for (Card card : communityCards) {
-            System.out.println(card.getSuite());
-        }
         
-        
-        
-        String response = in.nextLine();
-        */
         turn(true); //players turn
         turn(false); //cpu turn
     }
@@ -29,11 +20,7 @@ public class Poker extends Game {
         if(player) {
             printComm();
             p1.display("Player");
-            System.out.println(flushCheck(p1));
-            p1.display("Player");
-            System.out.println(straightCheck(p1));
-            p1.display("Player");
-            String response = in.nextLine();
+            checkHand(p1);
         }
 
         if(!player) {
@@ -56,9 +43,21 @@ public class Poker extends Game {
     }
 
     public void checkHand(Actor currHand) {
-        //if (currHand.cardSuiteCount(reward)) { //royal flush
-            
-        //}
+        System.out.println("Flush: " + flushCheck(p1));
+        System.out.println("High Value of Straight: " + straightCheck(p1));
+        ArrayList<Card> toCheck = p1.getHand();
+        System.out.println("Total " + 
+            toCheck.get(0).getValue() + 
+            ": " + 
+            cardValueCount(p1, toCheck.get(0).getValue()));
+        System.out.println("Total " + toCheck.get(1).getValue() + 
+            ": " + 
+            cardValueCount(p1, toCheck.get(1).getValue()));
+
+
+
+        //stall
+        String response = in.nextLine();
     }
 
     private boolean flushCheck(Actor currHand) {
@@ -83,32 +82,53 @@ public class Poker extends Game {
     }
 
     private int straightCheck(Actor currHand) {//returns highest value of the straight for points
+        int toReturn = -1;
         ArrayList<Card> toCheck = new ArrayList<Card>();
         toCheck.addAll(currHand.getHand());
         toCheck.addAll(communityCards);
-        
+
         toCheck.sort(new Comparator<Card>() {
             @Override
             public int compare(Card c1, Card c2) {
                 return c1.getValue() - c2.getValue();
             } 
         });
-        return 1;
+
+        int index = toCheck.size()-1; //index of current card
+        while(index >=4) {//checking backwards while valid
+            boolean valid = true;
+            int curr = index;
+            while(curr > index-4 && valid) {
+                if(toCheck.get(curr).getValue()-1 == toCheck.get(curr-1).getValue()) {
+                    //if card behind current is one less
+                    curr-=1;
+                } else {
+                    valid = false;
+                    index = curr-=1;//skip to next valid card
+                }
+            }
+            if(curr == index-4) {//straight found 
+                return toCheck.get(index).getValue();
+            }
+        }
+
+        return toReturn;//if no straight found
     }
 
     private int cardValueCount(Actor currHand, int value) { //give total cards that match a given value
         int toReturn = 0;
-        ArrayList<Card> toCheck = currHand.getHand();
+        ArrayList<Card> toCheck = new ArrayList<Card>();
+        toCheck.addAll(currHand.getHand());
         toCheck.addAll(communityCards);
+
         for (Card card : toCheck) {   
             if (card.getValue() == value) {
                 toReturn ++;
             }
         }
+
         return toReturn;
     }
-
-    
 
     private void printComm() {
         //card dimensions
