@@ -1,3 +1,5 @@
+import Basic.Actor;
+
 /**
  * Write a description of class Dealer here.
  *

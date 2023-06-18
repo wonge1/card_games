@@ -1,6 +1,8 @@
 
 import java.util.*;
 
+import Basic.Actor;
+
 /**
  * Write a description of class Player here.
  *

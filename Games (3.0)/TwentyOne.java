@@ -1,6 +1,9 @@
 
 import java.util.*;
 
+import Basic.Actor;
+import Basic.Card;
+
 public class TwentyOne extends Game {
 
     public TwentyOne(Player player, Computer comp, Scanner scan) {

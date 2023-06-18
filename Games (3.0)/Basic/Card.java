@@ -1,3 +1,4 @@
+package Basic;
 public class Card {
     private int value;
     private int suite; //unicode value 3-6, heart, diamon, clubs, spades.

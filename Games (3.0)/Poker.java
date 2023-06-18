@@ -1,6 +1,10 @@
 
 import java.util.*;
 
+import Basic.Actor;
+import Basic.Card;
+import Basic.Deck;
+
 public class Poker extends Game {
     private ArrayList<Card> communityCards = new ArrayList<Card>();
 
