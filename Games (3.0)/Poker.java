@@ -63,7 +63,10 @@ public class Poker extends Game {
         System.out.println("Total " + toCheck.get(1).getValue() + 
             ": " + 
             cardValueCount(currHand, toCheck.get(1).getValue()));
-        
+        ArrayList<DuplicateInfo> list = createDuplicateList(currHand);
+        for (DuplicateInfo info : list) {
+            System.out.println("Number: " + info.getValue() + ", has " + info.getTotal() + " copies");
+        }
         /*
         int straightValue = straightCheck(currHand);
         boolean flush = flushCheck(currHand);
@@ -175,7 +178,7 @@ public class Poker extends Game {
             int count = 0;
             int index = toCheck.size()-1;//start at end of the array list
             int value = toCheck.get(index).getValue();
-            while(index > 0) {
+            while(index >= 0) {
                 if(toCheck.get(index).getValue()==value) {
                     count++;
                     toCheck.remove(index);
