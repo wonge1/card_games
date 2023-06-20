@@ -34,28 +34,57 @@ public class Poker extends Game {
         p1.newCard();
         cpu.newCard();
         cpu.newCard();
+        /* 
         communityCards.add(Deck.deal());
         communityCards.add(Deck.deal());
         communityCards.add(Deck.deal());
         communityCards.add(Deck.deal());
         communityCards.add(Deck.deal());
+        */
+        communityCards.add(new Card(1, 4));
+        communityCards.add(new Card(10, 4));
+        communityCards.add(new Card(11, 4));
+        communityCards.add(new Card(12, 4));
+        communityCards.add(new Card(13, 4));
         
     }
 
     public void checkHand(Actor currHand) {
-        System.out.println("Flush: " + flushCheck(p1));
-        System.out.println("High Value of Straight: " + straightCheck(p1));
-        ArrayList<Card> toCheck = p1.getHand();
+
+
+        
+        System.out.println("Flush: " + flushCheck(currHand));
+        System.out.println("High Value of Straight: " + straightCheck(currHand));
+        ArrayList<Card> toCheck = currHand.getHand();
         System.out.println("Total " + 
             toCheck.get(0).getValue() + 
             ": " + 
-            cardValueCount(p1, toCheck.get(0).getValue()));
+            cardValueCount(currHand, toCheck.get(0).getValue()));
         System.out.println("Total " + toCheck.get(1).getValue() + 
             ": " + 
-            cardValueCount(p1, toCheck.get(1).getValue()));
-
-
-
+            cardValueCount(currHand, toCheck.get(1).getValue()));
+        
+        /*
+        int straightValue = straightCheck(currHand);
+        boolean flush = flushCheck(currHand);
+        if(straightValue == 14 && flush)//royal flush
+        else if(straighValue != -1 && flush)//straight flush
+        else if()//4 of a kind
+        else if()//full house
+        else if()//flush
+        else if(straightValue != -1)//straight
+        else if()//3 of a kind
+        else if()//2 pairs
+        else if()//1 pair
+        else if(toCheck.contains(new Card(1, 3)) //highcard
+            || toCheck.contains(new Card(1, 4))
+            || toCheck.contains(new Card(1, 5))
+            || toCheck.contains(new Card(1, 6))) {
+            
+        }
+         
+         */
+    
         //stall
         String response = in.nextLine();
     }
@@ -86,6 +115,11 @@ public class Poker extends Game {
         ArrayList<Card> toCheck = new ArrayList<Card>();
         toCheck.addAll(currHand.getHand());
         toCheck.addAll(communityCards);
+
+        //if theres an ace
+        if(toCheck.contains(new Card(1))) {
+            toCheck.add(new Card(14, 4));//add an ace so A,K,Q,J,10 works
+        }
 
         toCheck.sort(new Comparator<Card>() {
             @Override
@@ -125,6 +159,30 @@ public class Poker extends Game {
             if (card.getValue() == value) {
                 toReturn ++;
             }
+        }
+
+        return toReturn;
+    }
+
+    private ArrayList<DuplicateInfo> createDuplicateList(Actor currHand) {
+        
+        ArrayList<DuplicateInfo> toReturn = new ArrayList<DuplicateInfo>();
+        ArrayList<Card> toCheck = new ArrayList<Card>();
+        toCheck.addAll(currHand.getHand());
+        toCheck.addAll(communityCards);
+
+        while(toCheck.size() > 0) {
+            int count = 0;
+            int index = toCheck.size()-1;//start at end of the array list
+            int value = toCheck.get(index).getValue();
+            while(index > 0) {
+                if(toCheck.get(index).getValue()==value) {
+                    count++;
+                    toCheck.remove(index);
+                }
+                index--;
+            }
+            toReturn.add(new DuplicateInfo(value, count));
         }
 
         return toReturn;
