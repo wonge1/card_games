@@ -20,7 +20,7 @@ public class Card {
         return suite;
     }
 
-    @Override
+    @Override//using this for card checks in arraylists
     public boolean equals(Object c){
         if(c instanceof Card){
              Card p = (Card) c;
