@@ -24,7 +24,7 @@ public class DuplicateInfo {
     public boolean equals(Object c){
         if(c instanceof DuplicateInfo){
              DuplicateInfo p = (DuplicateInfo) c;
-             return this.value==p.getValue();
+             return this.total==p.getTotal();
         } else
              return false;
     }
