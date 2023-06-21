@@ -138,11 +138,18 @@ public class Poker extends Game {
             toCheck.add(new Card(14, 4));//add an ace so A,K,Q,J,10 works
         }
 
+        toCheck.sort(new Comparator<Card>() {
+            @Override
+            public int compare(Card c1, Card c2) {
+                return c1.getValue() - c2.getValue();
+            } 
+        });
+
         int count = 1;
         boolean valid = true;
         int currIndex = toCheck.size()-1;
         int currValue = toCheck.get(currIndex).getValue();
-        while(count < 5 && valid && currIndex >=4) {
+        while(count <= 4 && valid && currIndex >=4) {
             if(toCheck.contains(new Card(currValue-count))) {
                 count++;
             } else {
