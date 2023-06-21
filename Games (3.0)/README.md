@@ -9,6 +9,6 @@ To Do / Ideas List
         -look into pulling logic of cards and dupinfo into a super class
 
 
-DONT NEED TO SORT FOR STRAIGHT ANYMORE
+REBUILD DUP COUNT USING CONTAIN METHOD
 
 2. make ai for poker

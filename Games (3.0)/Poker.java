@@ -30,23 +30,27 @@ public class Poker extends Game {
 
     @Override
     public void newRound() { //initialize start of game
-        p1.newCard();
-        p1.newCard();
-        cpu.newCard();
-        cpu.newCard();
-        /* 
-        communityCards.add(Deck.deal());
-        communityCards.add(Deck.deal());
-        communityCards.add(Deck.deal());
-        communityCards.add(Deck.deal());
-        communityCards.add(Deck.deal());
-        */
-        communityCards.add(new Card(1, 4));
-        communityCards.add(new Card(1, 4));
-        communityCards.add(new Card(1, 4));
-        communityCards.add(new Card(1, 4));
-        communityCards.add(new Card(13, 4));
         
+        p1.newCard();
+        p1.newCard();
+        cpu.newCard();
+        cpu.newCard();
+        
+        communityCards.add(Deck.deal());
+        communityCards.add(Deck.deal());
+        communityCards.add(Deck.deal());
+        communityCards.add(Deck.deal());
+        communityCards.add(Deck.deal());
+        
+        /* 
+        p1.newCard(new Card(6,5));
+        p1.newCard(new Card(13,3));
+        communityCards.add(new Card(7, 3));
+        communityCards.add(new Card(8, 5));
+        communityCards.add(new Card(4, 6));
+        communityCards.add(new Card(13, 4));
+        communityCards.add(new Card(1, 6));
+        */
     }
 
     public void checkHand(Actor currHand) {
@@ -73,21 +77,27 @@ public class Poker extends Game {
 
         if(straightValue == 14 && flush) {//royal flush
             System.out.println("ROYAL FLUSH");
-        } else if(straightValue != -1 && flush) {//straight flush
+        } //else 
+        if(straightValue != -1 && flush) {//straight flush
             System.out.println("STRAIGHT FLUSH");
-        } else if(dupList.contains(new DuplicateInfo(4))) {//4 of a kind
+        } //else 
+        if(dupList.contains(new DuplicateInfo(4))) {//4 of a kind
             System.out.println("4 OF A KIND");
-        } else if(dupList.contains(new DuplicateInfo(3)) && dupList.contains(new DuplicateInfo(2))) {//full house
+        } //else 
+        if(dupList.contains(new DuplicateInfo(3)) && dupList.contains(new DuplicateInfo(2))) {//full house
             System.out.println("FULL HOUSE");
-        } else if(flush) {//flush
+        } //else 
+        if(flush) {//flush
             System.out.println("FLUSH");
-        } else if(straightValue != -1) {//straight
+        } //else 
+        if(straightValue != -1) {//straight
             System.out.println("STRAIGHT");
-        } else if(dupList.contains(new DuplicateInfo(3))) { //3 of a kind
+        } //else 
+        if(dupList.contains(new DuplicateInfo(3))) { //3 of a kind
             System.out.println("THREE OF A KIND");
-        } else if(dupList.contains(new DuplicateInfo(3))) {//2 pairs
-
-        } else if(dupList.contains(new DuplicateInfo(3))){//1 pair
+        } //else 
+        //2 pairs 
+        if(dupList.contains(new DuplicateInfo(2))){//1 pair
             System.out.println("TWO OF A KIND");
         } else {
             System.out.println("NO HAND");
@@ -128,35 +138,21 @@ public class Poker extends Game {
             toCheck.add(new Card(14, 4));//add an ace so A,K,Q,J,10 works
         }
 
-        toCheck.sort(new Comparator<Card>() {
-            @Override
-            public int compare(Card c1, Card c2) {
-                return c1.getValue() - c2.getValue();
-            } 
-        });
-
-        int index = toCheck.size()-1; //index of current card
-        while(index >=4) {//checking backwards while valid
-            int count = 1;
-            boolean valid = true;
-            int currIndex = index;
-            int currValue = toCheck.get(currIndex).getValue();
-
-            while(count < 5 && valid) {
-                if(toCheck.contains(new Card(currValue-count))) {
-                    count++;
-                } else if(currIndex==0) {
-
-                } else {
-                    currIndex-=1;//skip to next valid card
-                    currValue = toCheck.get(currIndex).getValue();
-                    count = 1;
-                }
+        int count = 1;
+        boolean valid = true;
+        int currIndex = toCheck.size()-1;
+        int currValue = toCheck.get(currIndex).getValue();
+        while(count < 5 && valid && currIndex >=4) {
+            if(toCheck.contains(new Card(currValue-count))) {
+                count++;
+            } else {
+                currIndex-=1;//skip to next valid card
+                currValue = toCheck.get(currIndex).getValue();
+                count = 1;
             }
-
-            if(count == 5) {//straight found 
-                return toCheck.get(index).getValue();
-            }
+        }
+        if(count == 5) {//straight found 
+            return toCheck.get(currIndex).getValue();
         }
 
         return -1;//if no straight found
