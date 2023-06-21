@@ -107,7 +107,7 @@ public class Poker extends Game {
         String response = in.nextLine();
     }
 
-    private boolean flushCheck(Actor currHand) {
+    public boolean flushCheck(Actor currHand) {
         ArrayList<Card> toCheck = new ArrayList<Card>();
         toCheck.addAll(currHand.getHand());
         toCheck.addAll(communityCards);
@@ -118,7 +118,7 @@ public class Poker extends Game {
             cardSuiteCount(toCheck, 6) >= 5;
     }
 
-    private int cardSuiteCount(ArrayList<Card> hand, int value) { //give total cards that match a given value
+    public int cardSuiteCount(ArrayList<Card> hand, int value) { //give total cards that match a given value
         int toReturn = 0;
         for (Card card : hand) {
             if (card.getSuite() == value) {
@@ -128,7 +128,7 @@ public class Poker extends Game {
         return toReturn;
     }
 
-    private int straightCheck(Actor currHand) {//returns highest value of the straight for points
+    public int straightCheck(Actor currHand) {//returns highest value of the straight for points
         ArrayList<Card> toCheck = new ArrayList<Card>();
         toCheck.addAll(currHand.getHand());
         toCheck.addAll(communityCards);
@@ -180,7 +180,7 @@ public class Poker extends Game {
         return toReturn;
     }
 
-    private ArrayList<DuplicateInfo> createDuplicateList(Actor currHand) {
+    public ArrayList<DuplicateInfo> createDuplicateList(Actor currHand) {
         
         ArrayList<DuplicateInfo> toReturn = new ArrayList<DuplicateInfo>();
         ArrayList<Card> toCheck = new ArrayList<Card>();
