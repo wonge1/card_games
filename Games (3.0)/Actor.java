@@ -81,6 +81,10 @@ public abstract class Actor
         hand.add(card);
     }
 
+    public void newCard(Card card) {//for testing purposes 
+        hand.add(card);
+    }
+
     public ArrayList<Card> getHand() {return hand;}
 
     
