@@ -1,15 +1,55 @@
+
+
+import java.util.ArrayList;
 import java.util.Scanner;
+
+//testing imports
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-class PokerTests {
+public class PokerTest {
 
-    private Poker toTest = new Poker(new Player(null),new Computer(),new Scanner(System.in));
+    private Poker toTest = new Poker(new Player(null),new Computer(),null);
+
+    public PokerTest() {
+
+    }
 
     @Test
-    void addition() {
-        //assertEquals(2, calculator.add(1, 1));
+    public void straightCheck() {
+        Player cardHolder = new Player(null);
+        cardHolder.newCard(new Card(2));
+        cardHolder.newCard(new Card(4));
+        cardHolder.newCard(new Card(5));
+        cardHolder.newCard(new Card(5));
+        cardHolder.newCard(new Card(6));
+
+        assertEquals(toTest.straightCheck(cardHolder),-1);//
+
+        cardHolder.newCard(new Card(7));
+        cardHolder.newCard(new Card(8));
+        cardHolder.newCard(new Card(10));
+
+        assertEquals(toTest.straightCheck(cardHolder),8);//
+    }
+
+    @Test
+    public void flushCheck() {
+        Player cardHolder = new Player(null);
+        cardHolder.newCard(new Card(2,3));
+        cardHolder.newCard(new Card(4,3));
+        cardHolder.newCard(new Card(5,3));
+        cardHolder.newCard(new Card(5,3));
+
+        assertFalse(toTest.flushCheck(cardHolder));
+
+        cardHolder.newCard(new Card(6,3));
+        cardHolder.newCard(new Card(7,3));
+        
+        assertTrue(toTest.flushCheck(cardHolder));
     }
 
 }
