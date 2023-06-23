@@ -9,7 +9,7 @@ import java.util.*;
 public class Deck
 {
     //private static ArrayList<Integer>deck = new ArrayList<Integer>();
-    private static ArrayList<Card>deck = new ArrayList<Card>();
+    private static ArrayList<Card> deck = new ArrayList<Card>();
 
     public Deck()
     {
@@ -33,5 +33,9 @@ public class Deck
     {
         Card ret = deck.remove((int)(Math.random()*deck.size()));//drawing the card
         return ret;
+    }
+
+    public ArrayList<Card> getDeck() {
+        return deck;
     }
 }

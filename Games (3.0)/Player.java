@@ -11,7 +11,7 @@ public class Player extends Actor
 {
     private Scanner in;
     // instance variables - replace the example below with your own
-    public int money = 10000;
+    private int money = 10000;
 
     /**
      * Constructor for objects of class Player
@@ -42,6 +42,10 @@ public class Player extends Actor
     public void printMoney() {System.out.println("Current Money: " + money);}
 
     public void addMoney(int amountWon) {money = money + amountWon;}
+
+    public int getMoney() {
+        return money;
+    }
 
     
 
