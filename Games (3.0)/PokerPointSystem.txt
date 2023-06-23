@@ -1,0 +1,50 @@
+High Card
+Pair of 2s
+Pair of 3s
+Pair of 4s
+Pair of 5s
+Pair of 6s
+Pair of 7s
+Pair of 8s
+Pair of 9s
+Pair of 10s
+Pair of Js
+Pair of Qs
+Pair of Ks
+Pair of As
+2 Pairs of 2s
+2 Pairs of 3s
+2 Pairs of 4s
+2 Pairs of 5s
+2 Pairs of 6s
+2 Pairs of 7s
+2 Pairs of 8s
+2 Pairs of 9s
+2 Pairs of 10s
+2 Pairs of Js
+2 Pairs of Qs
+2 Pairs of Ks
+2 Pairs of As
+Triplet of 2s
+Triplet of 3s
+Triplet of 4s
+Triplet of 5s
+Triplet of 6s
+Triplet of 7s
+Triplet of 8s
+Triplet of 9s
+Triplet of 10
+Triplet of Js
+Triplet of Qs
+Triplet of Ks
+Triplet of As
+A,2,3,4,5
+2,3,4,5,6
+3,4,5,6,7
+4,5,6,7,8
+5,6,7,8,9
+6,7,8,9,10
+7,8,9,10,J
+8,9,10,J,Q
+9,10,J,Q,K
+10,J,Q,K,A
