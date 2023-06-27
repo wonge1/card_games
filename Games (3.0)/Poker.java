@@ -2,7 +2,15 @@
 import java.util.*;
 
 public class Poker extends Game {
+    private static final int ONE_PAIR_POINT_CONSTANT = 0;
+    private static final int TWO_PAIR_POINT_CONSTANT = 13;
+    private static final int TRIPLET_PAIR_POINT_CONSTANT = 26;
+    private static final int STRAIGHT_POINT_CONSTANT = 36;
+
     private ArrayList<Card> communityCards = new ArrayList<Card>();
+    private int[] player1FlushHand = new int[5];
+    private int[] player2FlushHand = new int[5];
+    private int[] player3FlushHand = new int[5];
 
     public Poker(Player player, Computer comp, Scanner scan) {
         super(player, comp, scan);
@@ -77,32 +85,26 @@ public class Poker extends Game {
 
         if(straightValue == 14 && flush) {//royal flush
             System.out.println("ROYAL FLUSH");
-        } //else 
-        if(straightValue != -1 && flush) {//straight flush
+        } else if(straightValue != -1 && flush) {//straight flush
             System.out.println("STRAIGHT FLUSH");
-        } //else 
-        if(dupList.contains(new DuplicateInfo(4))) {//4 of a kind
+        } else if(dupList.contains(new DuplicateInfo(4))) {//4 of a kind
             System.out.println("4 OF A KIND");
-        } //else 
-        if(dupList.contains(new DuplicateInfo(3)) && dupList.contains(new DuplicateInfo(2))) {//full house
+        } else if(dupList.contains(new DuplicateInfo(3)) && dupList.contains(new DuplicateInfo(2))) {//full house
             System.out.println("FULL HOUSE");
-        } //else 
-        if(flush) {//flush
+        } else if(flush) {//flush
             System.out.println("FLUSH");
-        } //else 
-        if(straightValue != -1) {//straight
+        } else if(straightValue != -1) {//straight
             System.out.println("STRAIGHT");
-        } //else 
-        if(dupList.contains(new DuplicateInfo(3))) { //3 of a kind
+        } else if(dupList.contains(new DuplicateInfo(3))) { //3 of a kind
             System.out.println("THREE OF A KIND");
-        } //else 
-        //2 pairs 
-        if(dupList.contains(new DuplicateInfo(2))){//1 pair
+        } else if(dupList.contains(new DuplicateInfo(2))){//1 pair
             System.out.println("TWO OF A KIND");
         } else {
             System.out.println("NO HAND");
         }
-        
+        //need high card and 2 pairs
+
+
         //stall
         String response = in.nextLine();
     }
