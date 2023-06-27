@@ -8,9 +8,6 @@ public class Poker extends Game {
     private static final int STRAIGHT_POINT_CONSTANT = 36;
 
     private ArrayList<Card> communityCards = new ArrayList<Card>();
-    private int[] player1FlushHand = new int[5];
-    private int[] player2FlushHand = new int[5];
-    private int[] player3FlushHand = new int[5];
 
     public Poker(Player player, Computer comp, Scanner scan) {
         super(player, comp, scan);
@@ -167,21 +164,6 @@ public class Poker extends Game {
         return -1;//if no straight found
     }
 
-    private int cardValueCount(Actor currHand, int value) { //give total cards that match a given value
-        int toReturn = 0;
-        ArrayList<Card> toCheck = new ArrayList<Card>();
-        toCheck.addAll(currHand.getHand());
-        toCheck.addAll(communityCards);
-
-        for (Card card : toCheck) {   
-            if (card.getValue() == value) {
-                toReturn ++;
-            }
-        }
-
-        return toReturn;
-    }
-
     public ArrayList<DuplicateInfo> createDuplicateList(Actor currHand) {
         
         ArrayList<DuplicateInfo> toReturn = new ArrayList<DuplicateInfo>();
@@ -203,6 +185,12 @@ public class Poker extends Game {
             toReturn.add(new DuplicateInfo(value, count));
         }
 
+        return toReturn;
+    }
+
+    private int calcDuplicatePoints() {
+        int toReturn = -1;
+        
         return toReturn;
     }
 

@@ -4,9 +4,10 @@ To Do / Ideas List
 
 1. game logic for poker
         -working on logic for point check
-        -point system for easy comparison looks viable, except for flush. flush is fucky might just go with high card into ties
-        
+        -point system for easy comparison looks viable, except for flush. flush is fucky just go with high card into ties
 
+**change poker check from (getting the hand then figuring out points) -> (getting points then figuring out the hand)**
+        
 maybe
 -look into pulling logic of cards and dupinfo into a super class
 
