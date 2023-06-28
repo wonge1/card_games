@@ -164,7 +164,7 @@ public class Poker extends Game {
         return -1;//if no straight found
     }
 
-    public ArrayList<DuplicateInfo> createDuplicateList(Actor currHand) {
+    public ArrayList<DuplicateInfo> createDuplicateList(Actor currHand) {//should be dup check
         
         ArrayList<DuplicateInfo> toReturn = new ArrayList<DuplicateInfo>();
         ArrayList<Card> toCheck = new ArrayList<Card>();
@@ -188,9 +188,40 @@ public class Poker extends Game {
         return toReturn;
     }
 
-    private int calcDuplicatePoints() {
+    private int calcDuplicatePoints(ArrayList<DuplicateInfo> dupList) {
         int toReturn = -1;
+        int index = -1;
+        DuplicateInfo toCheck;
+        DuplicateInfo fourOfAKind = new DuplicateInfo(4);
+        DuplicateInfo threeOfAKind = new DuplicateInfo(3);
+        DuplicateInfo twoOfAKind = new DuplicateInfo(2);
         
+        if(dupList.contains(fourOfAKind)) {//theres at most a single 4 of a kind so dont need to check for highest
+            index = dupList.indexOf(fourOfAKind);
+            toCheck = dupList.get(index);
+            toReturn = toCheck.getValue();//add the 4 of a kind constant
+        } else if(dupList.contains(threeOfAKind)) {
+            index = dupList.indexOf(threeOfAKind);
+            while(index != -1) {
+                toCheck = dupList.remove(index);
+                if(toCheck.getValue() > toReturn) {
+                    toReturn = toCheck.getValue();//add the 3 of a kind constant
+                }
+                index = dupList.indexOf(threeOfAKind);
+            }
+
+        } else if(dupList.contains(twoOfAKind)) {
+            index = dupList.indexOf(twoOfAKind);
+            while(index != -1) {
+                toCheck = dupList.remove(index);
+                if(toCheck.getValue() > toReturn) {
+                    toReturn = toCheck.getValue();//add the 3 of a kind constant
+                }
+                index = dupList.indexOf(twoOfAKind);
+            }
+        }
+
+
         return toReturn;
     }
 
