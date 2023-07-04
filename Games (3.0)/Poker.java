@@ -200,7 +200,7 @@ public class Poker extends Game {
             index = dupList.indexOf(fourOfAKind);
             toCheck = dupList.get(index);
             toReturn = toCheck.getValue();//add the 4 of a kind constant
-        } else if(dupList.contains(threeOfAKind)) {
+        } else if(dupList.contains(threeOfAKind) || dupList.contains(twoOfAKind)) {
             index = dupList.indexOf(threeOfAKind);
             while(index != -1) {
                 toCheck = dupList.remove(index);
@@ -210,19 +210,29 @@ public class Poker extends Game {
                 index = dupList.indexOf(threeOfAKind);
             }
 
-        } else if(dupList.contains(twoOfAKind)) {
-            boolean twoPairs = false;
-            index = dupList.indexOf(twoOfAKind);
-            while(index != -1) {
-                toCheck = dupList.remove(index);
-                if(toCheck.getValue() > toReturn) {
-                    if(toReturn > -1) { //if there was a pair before this
-                        twoPairs = true ;
+            if(dupList.contains(twoOfAKind)) { 
+                if(index != -1) {//at this point would mean a triplet was found
+                    toReturn = 1;//figure out full house values
+                } else {//not a full house, instead a pair or two pair
+                    boolean twoPairs = false;
+                    index = dupList.indexOf(twoOfAKind);
+                    while(index != -1) {
+                        toCheck = dupList.remove(index);
+                        if(toCheck.getValue() > toReturn) {
+                            if(toReturn > -1) { //if there was a pair before this
+                                twoPairs = true ;
+                            }
+                            toReturn = toCheck.getValue();//add the 3 of a kind constant
+                        }
+                        index = dupList.indexOf(twoOfAKind);
                     }
-                    toReturn = toCheck.getValue();//add the 3 of a kind constant
+
+                    if(twoPairs) {
+                        toReturn = 1;//add two pair value
+                    }
                 }
-                index = dupList.indexOf(twoOfAKind);
-            }
+                
+            }  
         }
 
         return toReturn;
