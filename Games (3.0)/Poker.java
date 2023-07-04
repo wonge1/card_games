@@ -211,16 +211,19 @@ public class Poker extends Game {
             }
 
         } else if(dupList.contains(twoOfAKind)) {
+            boolean twoPairs = false;
             index = dupList.indexOf(twoOfAKind);
             while(index != -1) {
                 toCheck = dupList.remove(index);
                 if(toCheck.getValue() > toReturn) {
+                    if(toReturn > -1) { //if there was a pair before this
+                        twoPairs = true ;
+                    }
                     toReturn = toCheck.getValue();//add the 3 of a kind constant
                 }
                 index = dupList.indexOf(twoOfAKind);
             }
         }
-
 
         return toReturn;
     }
