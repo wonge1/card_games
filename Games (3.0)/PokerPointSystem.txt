@@ -48,3 +48,52 @@ A,2,3,4,5
 8,9,10,J,Q
 9,10,J,Q,K
 10,J,Q,K,A
+Flush with high of 2//dont think is possible byt wahtever
+Flush with high of 3
+Flush with high of 4
+Flush with high of 5
+Flush with high of 6
+Flush with high of 7
+Flush with high of 8
+Flush with high of 9
+Flush with high of 10
+Flush with high of J
+Flush with high of Q
+Flush with high of K
+Flush with high of A
+Full house triple 2
+Full house triple 3
+Full house triple 4
+Full house triple 5
+Full house triple 6
+Full house triple 7
+Full house triple 8
+Full house triple 9
+Full house triple 10
+Full house triple J
+Full house triple Q
+Full house triple k
+Full house triple A
+Four of a kind 2
+Four of a kind 3
+Four of a kind 4
+Four of a kind 5
+Four of a kind 6
+Four of a kind 7
+Four of a kind 8
+Four of a kind 9
+Four of a kind 10
+Four of a kind J
+Four of a kind Q
+Four of a kind K
+Four of a kind A
+Flush A,2,3,4,5
+Flush 2,3,4,5,6
+Flush 3,4,5,6,7
+Flush 4,5,6,7,8
+Flush 5,6,7,8,9
+Flush 6,7,8,9,10
+Flush 7,8,9,10,J
+Flush 8,9,10,J,Q
+Flush 9,10,J,Q,K
+Flush 10,J,Q,K,A
