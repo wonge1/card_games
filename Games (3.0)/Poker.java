@@ -4,8 +4,12 @@ import java.util.*;
 public class Poker extends Game {
     private static final int ONE_PAIR_POINT_CONSTANT = 0;
     private static final int TWO_PAIR_POINT_CONSTANT = 13;
-    private static final int TRIPLET_PAIR_POINT_CONSTANT = 26;
+    private static final int TRIPLET_POINT_CONSTANT = 26;
     private static final int STRAIGHT_POINT_CONSTANT = 36;
+    private static final int FLUSH_POINT_CONSTANT = 49;
+    private static final int FULL_HOUSE_POINT_CONSTANT = 62;
+    private static final int QUAD_POINT_CONSTANT = 75;
+    private static final int STRAIGHT_FLUSH_POINT_CONSTANT = 85;
 
     private ArrayList<Card> communityCards = new ArrayList<Card>();
 
@@ -74,7 +78,7 @@ public class Poker extends Game {
         for (DuplicateInfo info : list) {
             System.out.println("Number: " + info.getValue() + ", has " + info.getTotal() + " copies");
         }
-        */
+        
         
         int straightValue = straightCheck(currHand);
         boolean flush = flushCheck(currHand);
@@ -101,7 +105,7 @@ public class Poker extends Game {
         }
         //need high card and 2 pairs
 
-
+        */
         //stall
         String response = in.nextLine();
     }
@@ -164,9 +168,9 @@ public class Poker extends Game {
         return -1;//if no straight found
     }
 
-    public ArrayList<DuplicateInfo> createDuplicateList(Actor currHand) {//should be dup check
+    public int createDuplicateList(Actor currHand) {//should be dup check
         
-        ArrayList<DuplicateInfo> toReturn = new ArrayList<DuplicateInfo>();
+        ArrayList<DuplicateInfo> dupCollection = new ArrayList<DuplicateInfo>();
         ArrayList<Card> toCheck = new ArrayList<Card>();
         toCheck.addAll(currHand.getHand());
         toCheck.addAll(communityCards);
@@ -182,39 +186,47 @@ public class Poker extends Game {
                 }
                 index--;
             }
-            toReturn.add(new DuplicateInfo(value, count));
+            dupCollection.add(new DuplicateInfo(value, count));
         }
 
-        return toReturn;
+        return calcDuplicatePoints(dupCollection);
     }
 
     private int calcDuplicatePoints(ArrayList<DuplicateInfo> dupList) {
-        int toReturn = -1;
-        int index = -1;
         DuplicateInfo toCheck;
         DuplicateInfo fourOfAKind = new DuplicateInfo(4);
         DuplicateInfo threeOfAKind = new DuplicateInfo(3);
         DuplicateInfo twoOfAKind = new DuplicateInfo(2);
+        int toReturn = -1;
+        int index = -1;
+        boolean twoPairs = false;
+        boolean triplet = false;
+        boolean fullHouse = false;
         
         if(dupList.contains(fourOfAKind)) {//theres at most a single 4 of a kind so dont need to check for highest
             index = dupList.indexOf(fourOfAKind);
             toCheck = dupList.get(index);
-            toReturn = toCheck.getValue();//add the 4 of a kind constant
+            toReturn = toCheck.getValue() + QUAD_POINT_CONSTANT;//add the 4 of a kind constant
         } else if(dupList.contains(threeOfAKind) || dupList.contains(twoOfAKind)) {
             index = dupList.indexOf(threeOfAKind);
             while(index != -1) {
+                if(triplet) {//more than 1 triplet, so add pair count for full house
+                    fullHouse = true;
+                }
                 toCheck = dupList.remove(index);
                 if(toCheck.getValue() > toReturn) {
-                    toReturn = toCheck.getValue();//add the 3 of a kind constant
+                    toReturn = toCheck.getValue();
+                    triplet = true;
                 }
                 index = dupList.indexOf(threeOfAKind);
             }
-
-            if(dupList.contains(twoOfAKind)) { 
-                if(index != -1) {//at this point would mean a triplet was found
-                    toReturn = 1;//figure out full house values
+            
+            if(fullHouse) {
+                toReturn += FULL_HOUSE_POINT_CONSTANT;//full house from two triplets
+            } else if(dupList.contains(twoOfAKind)) { 
+                if(triplet) {//at this point would mean a triplet was found
+                    toReturn += FULL_HOUSE_POINT_CONSTANT;//full house from pair and triplet
                 } else {//not a full house, instead a pair or two pair
-                    boolean twoPairs = false;
                     index = dupList.indexOf(twoOfAKind);
                     while(index != -1) {
                         toCheck = dupList.remove(index);
@@ -228,11 +240,14 @@ public class Poker extends Game {
                     }
 
                     if(twoPairs) {
-                        toReturn = 1;//add two pair value
+                        toReturn = TWO_PAIR_POINT_CONSTANT;//add two pair value
+                    } else {
+                        toReturn = ONE_PAIR_POINT_CONSTANT;
                     }
                 }
-                
-            }  
+            } else {//only triplet
+                toReturn += TRIPLET_POINT_CONSTANT;
+            }
         }
 
         return toReturn;

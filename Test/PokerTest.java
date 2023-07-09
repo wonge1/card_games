@@ -55,21 +55,27 @@ public class PokerTest {
 
     @Test
     public void duplicateCheck() {
-        Player cardHolder = new Player(null);
-        cardHolder.newCard(new Card(7,3));
-        cardHolder.newCard(new Card(2,3));
-        cardHolder.newCard(new Card(4,3));
-        cardHolder.newCard(new Card(5,3));
-        cardHolder.newCard(new Card(5,3));
-        cardHolder.newCard(new Card(6,3));
-        cardHolder.newCard(new Card(7,3));
-        cardHolder.newCard(new Card(7,3));
-        cardHolder.newCard(new Card(7,3));
-        ArrayList<DuplicateInfo> toCheck = toTest.createDuplicateList(cardHolder);
+        int toCheck;
+
+        Player dupHand = new Player(null);
+
+        Player fullHouse = new Player(null);
+        fullHouse.newCard(new Card(11,3));
+        fullHouse.newCard(new Card(11,3));
+        fullHouse.newCard(new Card(7,3));
+        fullHouse.newCard(new Card(7,3));
+        fullHouse.newCard(new Card(7,3));
+        toCheck = toTest.createDuplicateList(fullHouse);
+        assertEquals(69, toCheck);//base full house set up
+        fullHouse.newCard(new Card(11,3));
+        toCheck = toTest.createDuplicateList(fullHouse);//full house made from two triplets
+        assertEquals(73, toCheck);
         
-        assertTrue(toCheck.contains(new DuplicateInfo(4)));
-        assertTrue(toCheck.contains(new DuplicateInfo(2)));
-        assertEquals(cardHolder.getHand().size(), 9);//ensure no changes occured in original actor class
+        
+
+        //assertTrue(toCheck.contains(new DuplicateInfo(4)));
+        //assertTrue(toCheck.contains(new DuplicateInfo(2)));
+        //assertEquals(cardHolder.getHand().size(), 9);//ensure no changes occured in original actor class
     }
 
 }
