@@ -50,64 +50,14 @@ public class Poker extends Game {
         communityCards.add(Deck.deal());
         communityCards.add(Deck.deal());
         communityCards.add(Deck.deal());
-        
-        /* 
-        p1.newCard(new Card(6,5));
-        p1.newCard(new Card(13,3));
-        communityCards.add(new Card(7, 3));
-        communityCards.add(new Card(8, 5));
-        communityCards.add(new Card(4, 6));
-        communityCards.add(new Card(13, 4));
-        communityCards.add(new Card(1, 6));
-        */
     }
 
-    public void checkHand(Actor currHand) {
-        /* 
-        System.out.println("Flush: " + flushCheck(currHand));
-        System.out.println("High Value of Straight: " + straightCheck(currHand));
-        ArrayList<Card> toCheck = currHand.getHand();
-        System.out.println("Total " + 
-            toCheck.get(0).getValue() + 
-            ": " + 
-            cardValueCount(currHand, toCheck.get(0).getValue()));
-        System.out.println("Total " + toCheck.get(1).getValue() + 
-            ": " + 
-            cardValueCount(currHand, toCheck.get(1).getValue()));
-        ArrayList<DuplicateInfo> list = createDuplicateList(currHand);
-        for (DuplicateInfo info : list) {
-            System.out.println("Number: " + info.getValue() + ", has " + info.getTotal() + " copies");
-        }
-        
-        
+    public int checkHand(Actor currHand) {
         int straightValue = straightCheck(currHand);
-        boolean flush = flushCheck(currHand);
-        ArrayList<DuplicateInfo> dupList = createDuplicateList(currHand);
-
-        if(straightValue == 14 && flush) {//royal flush
-            System.out.println("ROYAL FLUSH");
-        } else if(straightValue != -1 && flush) {//straight flush
-            System.out.println("STRAIGHT FLUSH");
-        } else if(dupList.contains(new DuplicateInfo(4))) {//4 of a kind
-            System.out.println("4 OF A KIND");
-        } else if(dupList.contains(new DuplicateInfo(3)) && dupList.contains(new DuplicateInfo(2))) {//full house
-            System.out.println("FULL HOUSE");
-        } else if(flush) {//flush
-            System.out.println("FLUSH");
-        } else if(straightValue != -1) {//straight
-            System.out.println("STRAIGHT");
-        } else if(dupList.contains(new DuplicateInfo(3))) { //3 of a kind
-            System.out.println("THREE OF A KIND");
-        } else if(dupList.contains(new DuplicateInfo(2))){//1 pair
-            System.out.println("TWO OF A KIND");
-        } else {
-            System.out.println("NO HAND");
-        }
-        //need high card and 2 pairs
-
-        */
-        //stall
-        String response = in.nextLine();
+        int flushValue = flushCheck(currHand);
+        int dupValue = duplicateCheck(currHand);
+        //need a straight flush point check here
+        return -1;
     }
 
     public int flushCheck(Actor currHand) {
