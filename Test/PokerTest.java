@@ -32,8 +32,8 @@ public class PokerTest {
         cardHolder.newCard(new Card(8));
         cardHolder.newCard(new Card(10));
 
-        assertEquals(toTest.straightCheck(cardHolder),8);//
-        assertEquals(cardHolder.getHand().size(), 8);//ensure no changes occured in original actor class
+        assertEquals(44, toTest.straightCheck(cardHolder));//
+        assertEquals(8, cardHolder.getHand().size());//ensure no changes occured in original actor class
     }
 
     @Test
@@ -44,13 +44,13 @@ public class PokerTest {
         cardHolder.newCard(new Card(5,3));
         cardHolder.newCard(new Card(5,3));
 
-        assertFalse(toTest.flushCheck(cardHolder));
+        assertEquals(-1, toTest.flushCheck(cardHolder));
 
         cardHolder.newCard(new Card(6,3));
         cardHolder.newCard(new Card(7,3));
         
-        assertTrue(toTest.flushCheck(cardHolder));
-        assertEquals(cardHolder.getHand().size(), 6);//ensure no changes occured in original actor class
+        assertEquals(56, toTest.flushCheck(cardHolder));
+        assertEquals(6, cardHolder.getHand().size());//ensure no changes occured in original actor class
     }
 
     @Test
