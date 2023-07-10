@@ -110,25 +110,44 @@ public class Poker extends Game {
         String response = in.nextLine();
     }
 
-    public boolean flushCheck(Actor currHand) {
+    public int flushCheck(Actor currHand) {
+        int toReturn = -1;
+        int count = 0;
+
         ArrayList<Card> toCheck = new ArrayList<Card>();
         toCheck.addAll(currHand.getHand());
         toCheck.addAll(communityCards);
 
-        return cardSuiteCount(toCheck, 3) >= 5 || 
-            cardSuiteCount(toCheck, 4) >= 5 || 
-            cardSuiteCount(toCheck, 5) >= 5 || 
-            cardSuiteCount(toCheck, 6) >= 5;
+        while (toReturn == -1 && count < 4) {
+            toReturn = flushHigh(toCheck, count + 3);
+            count++;
+        }
+
+        if(toReturn != -1) {
+            return toReturn + FLUSH_POINT_CONSTANT;
+        }
+
+        return -1;
     }
 
-    public int cardSuiteCount(ArrayList<Card> hand, int value) { //give total cards that match a given value
+    private int flushHigh(ArrayList<Card> hand, int suite) { //find high card of possible flush
         int toReturn = 0;
+        int count = 0;
+
         for (Card card : hand) {
-            if (card.getSuite() == value) {
-                toReturn ++;
+            if (card.getSuite() == suite) {
+                count++;
+                if(card.getValue() > toReturn) {
+                    toReturn = card.getValue();
+                }
             }
         }
-        return toReturn;
+
+        if(count >= 5) {
+            return toReturn;
+        } else {
+            return -1;//no flush
+        }
     }
 
     public int straightCheck(Actor currHand) {//returns highest value of the straight for points
@@ -161,8 +180,9 @@ public class Poker extends Game {
                 count = 1;
             }
         }
+
         if(count == 5) {//straight found 
-            return toCheck.get(currIndex).getValue();
+            return toCheck.get(currIndex).getValue() + STRAIGHT_POINT_CONSTANT;
         }
 
         return -1;//if no straight found
