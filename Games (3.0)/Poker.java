@@ -168,7 +168,7 @@ public class Poker extends Game {
         return -1;//if no straight found
     }
 
-    public int createDuplicateList(Actor currHand) {//should be dup check
+    public int duplicateCheck(Actor currHand) {//should be dup check
         
         ArrayList<DuplicateInfo> dupCollection = new ArrayList<DuplicateInfo>();
         ArrayList<Card> toCheck = new ArrayList<Card>();
@@ -240,9 +240,9 @@ public class Poker extends Game {
                     }
 
                     if(twoPairs) {
-                        toReturn = TWO_PAIR_POINT_CONSTANT;//add two pair value
+                        toReturn += TWO_PAIR_POINT_CONSTANT;//add two pair value
                     } else {
-                        toReturn = ONE_PAIR_POINT_CONSTANT;
+                        toReturn += ONE_PAIR_POINT_CONSTANT;
                     }
                 }
             } else {//only triplet

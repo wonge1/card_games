@@ -58,6 +58,29 @@ public class PokerTest {
         int toCheck;
 
         Player dupHand = new Player(null);
+        toCheck = toTest.duplicateCheck(dupHand);
+        assertEquals(-1, toCheck);//base check
+
+        dupHand.newCard(new Card(11,3));
+        toCheck = toTest.duplicateCheck(dupHand);
+        assertEquals(-1, toCheck);//base check
+
+        dupHand.newCard(new Card(11,3));
+        toCheck = toTest.duplicateCheck(dupHand);
+        assertEquals(11, toCheck);//checking for pairs of jacks
+
+        dupHand.newCard(new Card(11,3));
+        toCheck = toTest.duplicateCheck(dupHand);
+        assertEquals(37, toCheck);//checking for triple jacks
+
+        dupHand.newCard(new Card(11,3));
+        toCheck = toTest.duplicateCheck(dupHand);
+        assertEquals(86, toCheck);//checking for quad jacks
+    }
+
+    @Test
+    public void fullHouseCheck() {
+        int toCheck;
 
         Player fullHouse = new Player(null);
         fullHouse.newCard(new Card(11,3));
@@ -65,17 +88,11 @@ public class PokerTest {
         fullHouse.newCard(new Card(7,3));
         fullHouse.newCard(new Card(7,3));
         fullHouse.newCard(new Card(7,3));
-        toCheck = toTest.createDuplicateList(fullHouse);
+        toCheck = toTest.duplicateCheck(fullHouse);
         assertEquals(69, toCheck);//base full house set up
         fullHouse.newCard(new Card(11,3));
-        toCheck = toTest.createDuplicateList(fullHouse);//full house made from two triplets
+        toCheck = toTest.duplicateCheck(fullHouse);//full house made from two triplets
         assertEquals(73, toCheck);
-        
-        
-
-        //assertTrue(toCheck.contains(new DuplicateInfo(4)));
-        //assertTrue(toCheck.contains(new DuplicateInfo(2)));
-        //assertEquals(cardHolder.getHand().size(), 9);//ensure no changes occured in original actor class
     }
 
 }
