@@ -9,7 +9,7 @@ public class Poker extends Game {
     private static final int FLUSH_POINT_CONSTANT = 49;
     private static final int FULL_HOUSE_POINT_CONSTANT = 62;
     private static final int QUAD_POINT_CONSTANT = 75;
-    private static final int STRAIGHT_FLUSH_POINT_CONSTANT = 85;
+    private static final int STRAIGHT_FLUSH_POINT_CONSTANT = 49;//adding from straigh value
 
     private ArrayList<Card> communityCards = new ArrayList<Card>();
 
@@ -53,11 +53,27 @@ public class Poker extends Game {
     }
 
     public int checkHand(Actor currHand) {
+        int toReturn = -1;
+        if(currHand.getHand().contains(new Card(1))) {//if there is a high card, dont care about other cards as thats public
+            toReturn = 1;
+        }
+
         int straightValue = straightCheck(currHand);
         int flushValue = flushCheck(currHand);
         int dupValue = duplicateCheck(currHand);
-        //need a straight flush point check here
-        return -1;
+        if(flushValue != -1 && straightValue != -1) {//if straight flush
+            toReturn = straightValue + STRAIGHT_FLUSH_POINT_CONSTANT;
+        } else if(dupValue > FULL_HOUSE_POINT_CONSTANT+1) {//if we have a 4 of a kind or full house
+            toReturn = dupValue;
+        } else if(flushValue != -1) {//if only flush
+            toReturn = flushValue;
+        } else if(straightValue != -1) {//if straight
+            toReturn = straightValue;
+        } else if(dupValue != 1) {//remaining dup checks
+            toReturn = dupValue;
+        }
+
+        return toReturn;
     }
 
     public int flushCheck(Actor currHand) {
