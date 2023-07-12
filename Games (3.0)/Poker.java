@@ -53,7 +53,7 @@ public class Poker extends Game {
     }
 
     public int checkHand(Actor currHand) {
-        int toReturn = -1;
+        int toReturn = 0;//starts at 0 instead of -1 since this is total points, not if it found a hand
         if(currHand.getHand().contains(new Card(1))) {//if there is a high card, dont care about other cards as thats public
             toReturn = 1;
         }
@@ -69,7 +69,7 @@ public class Poker extends Game {
             toReturn = flushValue;
         } else if(straightValue != -1) {//if straight
             toReturn = straightValue;
-        } else if(dupValue != 1) {//remaining dup checks
+        } else if(dupValue != -1) {//remaining dup checks
             toReturn = dupValue;
         }
 
@@ -84,7 +84,15 @@ public class Poker extends Game {
         toCheck.addAll(currHand.getHand());
         toCheck.addAll(communityCards);
 
-        while (toReturn == -1 && count < 4) {
+        //replace all aces with a 14 value card for flush high check
+        int aceIndex = toCheck.indexOf(new Card(1));
+        while(aceIndex != -1) {
+            toCheck.add(new Card(14, toCheck.get(aceIndex).getSuite()));
+            toCheck.remove(aceIndex);
+            aceIndex = toCheck.indexOf(new Card(1));
+        }
+
+        while (toReturn == -1 && count < 4) {//check for all 4 suites
             toReturn = flushHigh(toCheck, count + 3);
             count++;
         }
