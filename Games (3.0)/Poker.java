@@ -29,7 +29,7 @@ public class Poker extends Game {
         if(player) {
             printComm();
             p1.display("Player");
-            checkHand(p1);
+            checkHand(p1.getHand());
         }
 
         if(!player) {
@@ -52,13 +52,13 @@ public class Poker extends Game {
         communityCards.add(Deck.deal());
     }
 
-    public int checkHand(Actor currHand) {
+    public int checkHand(ArrayList<Card> currHand) {
         int toReturn = 0;//starts at 0 instead of -1 since this is total points, not if it found a hand
-        if(currHand.getHand().contains(new Card(1))) {//if there is a high card, dont care about other cards as thats public
+        if(currHand.contains(new Card(1))) {//if there is a high card, dont care about other cards as thats public
             toReturn = 1;
         }
 
-        int straightValue = straightCheck(currHand);
+        int straightValue = straightCheck(currHand, true);
         int flushValue = flushCheck(currHand);
         int dupValue = duplicateCheck(currHand);
         if(flushValue != -1 && straightValue != -1) {//if straight flush
@@ -76,12 +76,12 @@ public class Poker extends Game {
         return toReturn;
     }
 
-    public int flushCheck(Actor currHand) {
+    public int flushCheck(ArrayList<Card> currHand) {
         int toReturn = -1;
         int count = 0;
 
         ArrayList<Card> toCheck = new ArrayList<Card>();
-        toCheck.addAll(currHand.getHand());
+        toCheck.addAll(currHand);
         toCheck.addAll(communityCards);
 
         //replace all aces with a 14 value card for flush high check
@@ -107,6 +107,7 @@ public class Poker extends Game {
     private int flushHigh(ArrayList<Card> hand, int suite) { //find high card of possible flush
         int toReturn = 0;
         int count = 0;
+        ArrayList<Card> toCheck = new ArrayList<Card>();
 
         for (Card card : hand) {
             if (card.getSuite() == suite) {
@@ -114,59 +115,66 @@ public class Poker extends Game {
                 if(card.getValue() > toReturn) {
                     toReturn = card.getValue();
                 }
+                toCheck.add(card);//create a list of cards in possible flush
             }
         }
 
-        if(count >= 5) {
+        int straightValue = straightCheck(toCheck, false);
+        if(count >= 5) {//if flush
+
             return toReturn;
         } else {
             return -1;//no flush
         }
     }
 
-    public int straightCheck(Actor currHand) {//returns highest value of the straight for points
+    public int straightCheck(ArrayList<Card> currHand, boolean community) {//returns highest value of the straight for points
         ArrayList<Card> toCheck = new ArrayList<Card>();
-        toCheck.addAll(currHand.getHand());
-        toCheck.addAll(communityCards);
-
-        //if theres an ace
-        if(toCheck.contains(new Card(1))) {
-            toCheck.add(new Card(14, 4));//add an ace so A,K,Q,J,10 works
+        toCheck.addAll(currHand);
+        if(community) {
+            toCheck.addAll(communityCards);
         }
 
-        toCheck.sort(new Comparator<Card>() {
-            @Override
-            public int compare(Card c1, Card c2) {
-                return c1.getValue() - c2.getValue();
-            } 
-        });
+        if(toCheck.size() > 0) {
+            //if theres an ace
+            if(toCheck.contains(new Card(1))) {
+                toCheck.add(new Card(14, 4));//add an ace so A,K,Q,J,10 works
+            }
 
-        int count = 1;
-        boolean valid = true;
-        int currIndex = toCheck.size()-1;
-        int currValue = toCheck.get(currIndex).getValue();
-        while(count <= 4 && valid && currIndex >=4) {
-            if(toCheck.contains(new Card(currValue-count))) {
-                count++;
-            } else {
-                currIndex-=1;//skip to next valid card
-                currValue = toCheck.get(currIndex).getValue();
-                count = 1;
+            toCheck.sort(new Comparator<Card>() {
+                @Override
+                public int compare(Card c1, Card c2) {
+                    return c1.getValue() - c2.getValue();
+                } 
+            });
+            
+            int count = 1;
+            boolean valid = true;
+            int currIndex = toCheck.size()-1;
+            int currValue = toCheck.get(currIndex).getValue();
+            while(count <= 4 && valid && currIndex >=4) {
+                if(toCheck.contains(new Card(currValue-count))) {
+                    count++;
+                } else {
+                    currIndex-=1;//skip to next valid card
+                    currValue = toCheck.get(currIndex).getValue();
+                    count = 1;
+                }
+            }
+
+            if(count == 5) {//straight found 
+                return toCheck.get(currIndex).getValue() + STRAIGHT_POINT_CONSTANT;
             }
         }
-
-        if(count == 5) {//straight found 
-            return toCheck.get(currIndex).getValue() + STRAIGHT_POINT_CONSTANT;
-        }
-
+        
         return -1;//if no straight found
     }
 
-    public int duplicateCheck(Actor currHand) {//should be dup check
+    public int duplicateCheck(ArrayList<Card> currHand) {//should be dup check
         
         ArrayList<DuplicateInfo> dupCollection = new ArrayList<DuplicateInfo>();
         ArrayList<Card> toCheck = new ArrayList<Card>();
-        toCheck.addAll(currHand.getHand());
+        toCheck.addAll(currHand);
         toCheck.addAll(communityCards);
 
         while(toCheck.size() > 0) {
