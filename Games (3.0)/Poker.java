@@ -61,17 +61,11 @@ public class Poker extends Game {
         int straightValue = straightCheck(currHand, true);
         int flushValue = flushCheck(currHand);
         int dupValue = duplicateCheck(currHand);
-        if(flushValue != -1 && straightValue != -1) {//if straight flush
-            toReturn = straightValue + STRAIGHT_FLUSH_POINT_CONSTANT;
-        } else if(dupValue > FULL_HOUSE_POINT_CONSTANT+1) {//if we have a 4 of a kind or full house
-            toReturn = dupValue;
-        } else if(flushValue != -1) {//if only flush
-            toReturn = flushValue;
-        } else if(straightValue != -1) {//if straight
-            toReturn = straightValue;
-        } else if(dupValue != -1) {//remaining dup checks
-            toReturn = dupValue;
-        }
+
+        int points = Math.max(flushValue, dupValue);
+        points = Math.max(points, straightValue);
+        points = Math.max(toReturn, points);
+        toReturn = points;
 
         return toReturn;
     }
@@ -227,11 +221,11 @@ public class Poker extends Game {
                 } else {//not a full house, instead a pair or two pair
                     index = dupList.indexOf(twoOfAKind);
                     while(index != -1) {
+                        if(toReturn > -1) { //if there was a pair before this
+                            twoPairs = true ;
+                        }
                         toCheck = dupList.remove(index);
                         if(toCheck.getValue() > toReturn) {
-                            if(toReturn > -1) { //if there was a pair before this
-                                twoPairs = true ;
-                            }
                             toReturn = toCheck.getValue();//add the 3 of a kind constant
                         }
                         index = dupList.indexOf(twoOfAKind);

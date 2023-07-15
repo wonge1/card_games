@@ -119,7 +119,7 @@ public class PokerTest {
     }
 
     @Test
-    public void handCheckTest() {//misc checks for straigh flush and high card
+    public void handCheckTest() {//misc checks for high card and overall hands
         ArrayList<Card> hand = new ArrayList<Card>();
         hand.add(new Card(11,3));
         hand.add(new Card(4,4));
@@ -139,15 +139,36 @@ public class PokerTest {
     @Test
     public void pointPriorityTest() {//checking that the right points are assigned
         ArrayList<Card> hand = new ArrayList<Card>();
-        hand.add(new Card(1,3));
-        hand.add(new Card(2,4));
+        hand.add(new Card(2,3));
         hand.add(new Card(3,3));
         hand.add(new Card(4,3));
+        assertEquals(0, toTest.checkHand(hand));//no hand
+
+        hand.add(new Card(1,6));
+        assertEquals(1, toTest.checkHand(hand));// high card
+
+        hand.add(new Card(9,6));//pair of 9s
+        hand.add(new Card(9,6));
+        assertEquals(9, toTest.checkHand(hand));
+
+        hand.add(new Card(10,4));//2 pairs, high 10s
+        hand.add(new Card(10,4));
+        assertEquals(23, toTest.checkHand(hand));
+
+        hand.remove(hand.size()-1);//remove latest 10 card so no full house
+        hand.add(new Card(9,6));
+        assertEquals(35, toTest.checkHand(hand));
+
         hand.add(new Card(5,3));
         assertEquals(41, toTest.checkHand(hand));//currently a straight
 
         hand.add(new Card(7,3));
-        assertEquals(54, toTest.checkHand(hand));//flush should now take prio
+        assertEquals(56, toTest.checkHand(hand));//flush should now take prio, with high of 7
+
+        hand.add(new Card(10,4));// full house triple 9s
+        assertEquals(71, toTest.checkHand(hand));
+        hand.add(new Card(10,4));// full house triple 10s
+        assertEquals(72, toTest.checkHand(hand));
     }
 
 }
