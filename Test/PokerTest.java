@@ -49,6 +49,43 @@ public class PokerTest {
         assertEquals(6, hand.size());//ensure no changes occured in original actor class
     }
 
+    //done in flush cehck method
+    @Test
+    public void straightFlushCheckTest() { 
+        ArrayList<Card> hand = new ArrayList<Card>();
+
+        hand.add(new Card(4,3));
+        hand.add(new Card(5,3));
+        hand.add(new Card(6,3));
+        hand.add(new Card(7,3));
+        hand.add(new Card(8,3));//straight flush
+        assertEquals(93, toTest.flushCheck(hand));
+
+        //testing flushes with aces
+        hand.clear();
+        hand.add(new Card(13,3));
+        hand.add(new Card(13,3));
+        hand.add(new Card(12,3));
+        hand.add(new Card(12,3));
+        hand.add(new Card(1,3));
+        assertEquals(63, toTest.flushCheck(hand));
+
+        hand.add(new Card(1,3));
+        hand.add(new Card(2,3));
+        hand.add(new Card(3,3));
+        hand.add(new Card(4,3));
+        hand.add(new Card(5,3));
+        assertEquals(90, toTest.flushCheck(hand));
+
+        hand.clear();
+        hand.add(new Card(1,3));
+        hand.add(new Card(10,3));
+        hand.add(new Card(11,3));
+        hand.add(new Card(12,3));
+        hand.add(new Card(13,3));
+        assertEquals(99, toTest.flushCheck(hand));
+    }
+
     @Test
     public void duplicateCheckTest() {
         ArrayList<Card> hand = new ArrayList<Card>();

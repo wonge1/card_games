@@ -84,14 +84,6 @@ public class Poker extends Game {
         toCheck.addAll(currHand);
         toCheck.addAll(communityCards);
 
-        //replace all aces with a 14 value card for flush high check
-        int aceIndex = toCheck.indexOf(new Card(1));
-        while(aceIndex != -1) {
-            toCheck.add(new Card(14, toCheck.get(aceIndex).getSuite()));
-            toCheck.remove(aceIndex);
-            aceIndex = toCheck.indexOf(new Card(1));
-        }
-
         while (toReturn == -1 && count < 4) {//check for all 4 suites
             toReturn = flushHigh(toCheck, count + 3);
             count++;
@@ -114,15 +106,21 @@ public class Poker extends Game {
                 count++;
                 if(card.getValue() > toReturn) {
                     toReturn = card.getValue();
+                } else if(card.getValue() == 1) { //found an ace
+                    toReturn = 14;
                 }
                 toCheck.add(card);//create a list of cards in possible flush
             }
         }
-
-        int straightValue = straightCheck(toCheck, false);
+        
         if(count >= 5) {//if flush
-
-            return toReturn;
+            int straightValue = straightCheck(toCheck, false);
+            if(straightValue != -1) {//straight flush
+                return straightValue;
+            } else {//just a flush
+                return toReturn;
+            }   
+            
         } else {
             return -1;//no flush
         }
@@ -135,37 +133,35 @@ public class Poker extends Game {
             toCheck.addAll(communityCards);
         }
 
-        if(toCheck.size() > 0) {
-            //if theres an ace
-            if(toCheck.contains(new Card(1))) {
-                toCheck.add(new Card(14, 4));//add an ace so A,K,Q,J,10 works
-            }
-
-            toCheck.sort(new Comparator<Card>() {
-                @Override
-                public int compare(Card c1, Card c2) {
-                    return c1.getValue() - c2.getValue();
-                } 
-            });
-            
-            int count = 1;
-            boolean valid = true;
-            int currIndex = toCheck.size()-1;
-            int currValue = toCheck.get(currIndex).getValue();
-            while(count <= 4 && valid && currIndex >=4) {
-                if(toCheck.contains(new Card(currValue-count))) {
-                    count++;
-                } else {
-                    currIndex-=1;//skip to next valid card
-                    currValue = toCheck.get(currIndex).getValue();
-                    count = 1;
-                }
-            }
-
-            if(count == 5) {//straight found 
-                return toCheck.get(currIndex).getValue() + STRAIGHT_POINT_CONSTANT;
+        //if(toCheck.size() > 0) {
+        //if theres an ace
+        if(toCheck.contains(new Card(1))) {
+            toCheck.add(new Card(14, 4));//add an ace so A,K,Q,J,10 works
+        }
+        toCheck.sort(new Comparator<Card>() {
+            @Override
+            public int compare(Card c1, Card c2) {
+                return c1.getValue() - c2.getValue();
+            } 
+        });
+        
+        int count = 1;
+        boolean valid = true;
+        int currIndex = toCheck.size()-1;
+        int currValue = toCheck.get(currIndex).getValue();
+        while(count <= 4 && valid && currIndex >=4) {
+            if(toCheck.contains(new Card(currValue-count))) {
+                count++;
+            } else {
+                currIndex-=1;//skip to next valid card
+                currValue = toCheck.get(currIndex).getValue();
+                count = 1;
             }
         }
+        if(count == 5) {//straight found 
+            return toCheck.get(currIndex).getValue() + STRAIGHT_POINT_CONSTANT;
+        }
+        //}
         
         return -1;//if no straight found
     }
