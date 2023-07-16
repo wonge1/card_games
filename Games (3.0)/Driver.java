@@ -37,9 +37,9 @@ public class Driver {
         cpu = new Computer();
         getGameType();
         if(currGameType == GameType.TwentyOne) {
-            game = new TwentyOne(p1, cpu, in);
+            game = new TwentyOne(p1, in);
         } else if(currGameType == GameType.Poker) {
-            game = new Poker(p1, cpu, in);
+            game = new Poker(p1, in);
         } else if(currGameType == GameType.GoFish) {
             
         }

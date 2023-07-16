@@ -9,9 +9,8 @@ public abstract class Game {
     protected int reward;
     protected Scanner in;
 
-    public Game(Player player, Computer comp, Scanner scan)  {
+    public Game(Player player, Scanner scan)  {
         p1 = player;
-        cpu = comp;
         in = scan;
     }
     

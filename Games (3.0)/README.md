@@ -4,7 +4,8 @@ To Do / Ideas List
 
 1. game logic for poker
 
-        - need to finish testing check hand (still needs quads and straight flush)
+        - base outline for poker game flow made, 
+        - might want to add reshuffle into deck when empty
 
 **change poker check from (getting the hand then figuring out points) -> (getting points then figuring out the hand)**
         

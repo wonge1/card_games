@@ -13,13 +13,13 @@ public class Poker extends Game {
 
     private ArrayList<Card> communityCards = new ArrayList<Card>();
 
-    public Poker(Player player, Computer comp, Scanner scan) {
-        super(player, comp, scan);
+    public Poker(Player player, Scanner scan) {
+        super(player, scan);
+        cpu = new Computer();
     }
 
     @Override
-    public void game() {//game running that will be looped
-        
+    public void game() {//game running that will be looped  
         turn(true); //players turn
         turn(false); //cpu turn
     }
@@ -29,12 +29,21 @@ public class Poker extends Game {
         if(player) {
             printComm();
             p1.display("Player");
-            checkHand(p1.getHand());
+            reward = p1.betAmount();//check for bet
         }
 
         if(!player) {
 
         }
+
+        if(communityCards.size() < 5) {
+            //new card to set
+            communityCards.add(Deck.deal());
+        } else {//all cards revealed, tally points
+            int playerPoints = checkHand(p1.getHand());
+            int cpu1Points = checkHand(cpu.getHand());
+        }
+        
     }
 
     @Override
@@ -45,8 +54,6 @@ public class Poker extends Game {
         cpu.newCard();
         cpu.newCard();
         
-        communityCards.add(Deck.deal());
-        communityCards.add(Deck.deal());
         communityCards.add(Deck.deal());
         communityCards.add(Deck.deal());
         communityCards.add(Deck.deal());
