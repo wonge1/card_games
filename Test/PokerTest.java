@@ -169,6 +169,12 @@ public class PokerTest {
         assertEquals(71, toTest.checkHand(hand));
         hand.add(new Card(10,4));// full house triple 10s
         assertEquals(72, toTest.checkHand(hand));
+
+        hand.add(new Card(10,5));// quad 10s
+        assertEquals(85, toTest.checkHand(hand));
+
+        hand.add(new Card(1,3));// straight flush hgih of 5
+        assertEquals(90, toTest.checkHand(hand));
     }
 
 }
