@@ -6,6 +6,7 @@ To Do / Ideas List
 
         - base outline for poker game flow made, 
         - might want to add reshuffle into deck when empty
+        - need to add some kind of checking for valid bets in poker (to lil)
 
 **change poker check from (getting the hand then figuring out points) -> (getting points then figuring out the hand)**
         

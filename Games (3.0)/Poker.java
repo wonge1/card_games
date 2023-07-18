@@ -9,7 +9,13 @@ public class Poker extends Game {
     private static final int FLUSH_POINT_CONSTANT = 49;
     private static final int FULL_HOUSE_POINT_CONSTANT = 62;
     private static final int QUAD_POINT_CONSTANT = 75;
-    private static final int STRAIGHT_FLUSH_POINT_CONSTANT = 49;//adding from straigh value
+    
+    private static final int ante = 0;
+    private int pot = 0;
+    private int currBet = 0;//gonna have to enable the minimum on this
+    private int prevBet = 0;
+    private int totalPlayers = 2;
+    private int matchedBets = -1;//will be set as 0 when first bet made,
 
     private ArrayList<Card> communityCards = new ArrayList<Card>();
 
@@ -22,19 +28,6 @@ public class Poker extends Game {
     public void game() {//game running that will be looped  
         turn(true); //players turn
         turn(false); //cpu turn
-    }
-
-    @Override
-    public void turn(boolean player) {
-        if(player) {
-            printComm();
-            p1.display("Player");
-            reward = p1.betAmount();//check for bet
-        }
-
-        if(!player) {
-
-        }
 
         if(communityCards.size() < 5) {
             //new card to set
@@ -43,12 +36,24 @@ public class Poker extends Game {
             int playerPoints = checkHand(p1.getHand());
             int cpu1Points = checkHand(cpu.getHand());
         }
-        
+    }
+
+    @Override
+    public void turn(boolean player) {
+        if(player) {
+            printComm();
+            p1.display("Player");
+            turnActions(true, true);
+        }
+
+        if(!player) {
+            //check current hand and decide what to do 
+            turnActions(false, false);;
+        }
     }
 
     @Override
     public void newRound() { //initialize start of game
-        
         p1.newCard();
         p1.newCard();
         cpu.newCard();
@@ -57,6 +62,56 @@ public class Poker extends Game {
         communityCards.add(Deck.deal());
         communityCards.add(Deck.deal());
         communityCards.add(Deck.deal());
+    }
+
+    public void turnActions(boolean firstAction, boolean player) {
+        //what to do on turn fold, raise, call
+        //https://bicyclecards.com/how-to-play/basics-of-poker
+
+        //call is to match waht is currently being bet
+        //fold is to quit this round
+        //check is to bet nothing (only if no bet made so far)
+        //raise is to increase current bet amount 
+        if(player) {
+            boolean validInput = false;
+            String callOrCheck = "";
+            System.out.println("Select action to make.");
+            if(firstAction) {
+                callOrCheck = "Check";
+            } else {
+                callOrCheck = "Call";
+            }
+            System.out.println(0 + ": " + callOrCheck);
+            System.out.println(1 + ": " + "Raise");
+            System.out.println(2 + ": " + "Fold");
+            p1.printMoney();
+            while (!validInput) {
+                try {
+                    int response = Integer.parseInt(in.nextLine());
+                    if (response > 2 || response < 0) 
+                        throw new InputMismatchException();
+                    validInput = true;
+                    if(response == 0) {
+                        if(currBet > prevBet && matchedBets < totalPlayers - 1) {//cant check, must call
+                            p1.addMoney(-1 * (currBet - prevBet));
+                            matchedBets++;
+                            pot += currBet;
+                        }
+                    } else if(response == 1) {//raise
+                        prevBet = currBet;  
+                        currBet = p1.betAmount();
+                        pot += currBet;
+                        matchedBets = 0;
+                    } else if(response == 2) {//fold
+                        roundOver = true;
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input please try again.");
+                }
+            }
+        } else {//if computer
+
+        }
     }
 
     public int checkHand(ArrayList<Card> currHand) {

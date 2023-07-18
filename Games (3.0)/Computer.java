@@ -6,5 +6,7 @@
  */
 public class Computer extends Actor
 {
-
+    private int money = 10000;
+    
+    public void addMoney(int amountWon) {money = money + amountWon;}
 }

@@ -24,7 +24,6 @@ public class Player extends Actor
         boolean validInput = false;
         int i = -1;
         while(!validInput) {
-            System.out.println("Current Money: " + money);
             System.out.println("How much money do you want to bet?");
             try {
                 i = Integer.parseInt(in.nextLine());//returns the amount intended to bet

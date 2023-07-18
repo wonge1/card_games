@@ -11,6 +11,7 @@ public class TwentyOne extends Game {
     @Override
     public void turn(boolean player) {
         if(player) {
+            p1.printMoney();
             reward = p1.betAmount();//check for bet
             System.out.println("Total Pool is " + reward);
             while(!roundOver && hit(p1)) {//player draw loop, breaks when told to or points > 21
