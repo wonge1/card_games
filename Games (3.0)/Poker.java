@@ -110,7 +110,25 @@ public class Poker extends Game {
                 }
             }
         } else {//if computer
+            int currentPoints = checkHand(cpu.getHand());
+            System.out.println("Computer Points: " + currentPoints);
+            //check/call
+            
+            //raise
+            if(currentPoints > 0) {
+                if(Math.random() < 0.3) {//raise at 30% chance
+                    prevBet = currBet;  
+                    currBet += 500;
+                    pot += currBet;
+                    matchedBets = 0;
+                }
+            } else if(currentPoints == 0) {
+                if(Math.random() < 0.3) {
+                    roundOver = true;
+                }
+            }
 
+            //fold
         }
     }
 
