@@ -36,6 +36,7 @@ public class Poker extends Game {
             int playerPoints = checkHand(p1.getHand());
             int cpu1Points = checkHand(cpu.getHand());
             System.out.println("ROUND OVER");
+            gameCheck();
         }
     }
 
@@ -55,6 +56,12 @@ public class Poker extends Game {
 
     @Override
     public void newRound() { //initialize start of game
+        //prior round cleanup
+        roundOver = false;
+        p1.reset();
+        cpu.reset();
+        communityCards.clear();
+
         p1.newCard();
         p1.newCard();
         cpu.newCard();
