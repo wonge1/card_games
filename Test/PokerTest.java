@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class PokerTest {
 
-    private Poker toTest = new Poker(new Player(null),new Computer(),null);
+    private Poker toTest = new Poker(new Player(null),null);
 
     public PokerTest() {
 

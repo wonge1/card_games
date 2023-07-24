@@ -29,12 +29,13 @@ public class Poker extends Game {
         turn(true); //players turn
         turn(false); //cpu turn
 
-        if(communityCards.size() < 5) {
+        if(communityCards.size() < 5 && !roundOver) {
             //new card to set
             communityCards.add(Deck.deal());
         } else {//all cards revealed, tally points
             int playerPoints = checkHand(p1.getHand());
             int cpu1Points = checkHand(cpu.getHand());
+            System.out.println("ROUND OVER");
         }
     }
 
