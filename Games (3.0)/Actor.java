@@ -9,7 +9,8 @@ public abstract class Actor
 {
     // instance variables - replace the example below with your own
     protected ArrayList<Card> hand = new ArrayList<Card>();
-    
+    protected boolean defeated = false;
+
     public void display(Object z) {//whoever we are displaying for
         System.out.println(z.toString().toUpperCase());
         displayHand();

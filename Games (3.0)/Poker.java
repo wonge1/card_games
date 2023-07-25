@@ -10,7 +10,7 @@ public class Poker extends Game {
     private static final int FULL_HOUSE_POINT_CONSTANT = 62;
     private static final int QUAD_POINT_CONSTANT = 75;
     
-    private static final int ante = 0;
+    private static final int ante = 500;
     private int pot = 0;
     private int currBet = 0;//gonna have to enable the minimum on this
     private int prevBet = 0;
@@ -38,7 +38,7 @@ public class Poker extends Game {
             cpu.displayHand();
             System.out.println("CPU1 Points: " + cpu1Points);
 
-            if(playerPoints > cpu1Points) {
+            if((playerPoints > cpu1Points || cpu.defeated) && !p1.defeated) {//make sure that player didnt fold
                 System.out.println("You won!");
                 p1.addMoney(pot);
             } else {
@@ -70,6 +70,7 @@ public class Poker extends Game {
         p1.reset();
         cpu.reset();
         communityCards.clear();
+        currBet = ante;
 
         p1.newCard();
         p1.newCard();
@@ -118,10 +119,12 @@ public class Poker extends Game {
                     } else if(response == 1) {//raise
                         prevBet = currBet;  
                         currBet = p1.betAmount();
+                        System.out.println("Raise by: " + currBet);
                         pot += currBet;
                         matchedBets = 0;
                     } else if(response == 2) {//fold
                         roundOver = true;
+                        p1.defeated = true;
                     }
                 } catch (InputMismatchException e) {
                     System.out.println("Invalid input please try again.");
@@ -136,6 +139,7 @@ public class Poker extends Game {
                 if(Math.random() < 0.3) {//raise at 30% chance
                     prevBet = currBet;  
                     currBet += 500;
+                    System.out.println("Raise by: " + currBet);
                     pot += currBet;
                     matchedBets = 0;
                 } else if(currBet > prevBet && matchedBets < totalPlayers - 1){//check/call
@@ -146,6 +150,8 @@ public class Poker extends Game {
             } else if(currentPoints == 0) {
                 if(Math.random() < 0.3) {
                     roundOver = true;
+                    cpu.defeated = true;
+                    System.out.println("CPU1 Folded");
                 } else if(currBet > prevBet && matchedBets < totalPlayers - 1){//check/call
                     cpu.addMoney(-1 * (currBet - prevBet));
                     matchedBets++;
