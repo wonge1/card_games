@@ -35,7 +35,16 @@ public class Poker extends Game {
         } else {//all cards revealed, tally points
             int playerPoints = checkHand(p1.getHand());
             int cpu1Points = checkHand(cpu.getHand());
-            System.out.println("ROUND OVER");
+            cpu.displayHand();
+            System.out.println("CPU1 Points: " + cpu1Points);
+
+            if(playerPoints > cpu1Points) {
+                System.out.println("You won!");
+                p1.addMoney(pot);
+            } else {
+                System.out.println("You lose...");
+            }
+            
             gameCheck();
         }
     }
@@ -80,6 +89,7 @@ public class Poker extends Game {
         //fold is to quit this round
         //check is to bet nothing (only if no bet made so far)
         //raise is to increase current bet amount 
+        System.out.println("Current Bet: $" + currBet);
         if(player) {
             boolean validInput = false;
             String callOrCheck = "";
@@ -104,7 +114,7 @@ public class Poker extends Game {
                             p1.addMoney(-1 * (currBet - prevBet));
                             matchedBets++;
                             pot += currBet;
-                        }
+                        } //else its a check in which case, just pass
                     } else if(response == 1) {//raise
                         prevBet = currBet;  
                         currBet = p1.betAmount();
@@ -119,7 +129,6 @@ public class Poker extends Game {
             }
         } else {//if computer
             int currentPoints = checkHand(cpu.getHand());
-            System.out.println("Computer Points: " + currentPoints);
             //check/call
             
             //raise
@@ -129,10 +138,18 @@ public class Poker extends Game {
                     currBet += 500;
                     pot += currBet;
                     matchedBets = 0;
+                } else if(currBet > prevBet && matchedBets < totalPlayers - 1){//check/call
+                    cpu.addMoney(-1 * (currBet - prevBet));
+                    matchedBets++;
+                    pot += currBet;
                 }
             } else if(currentPoints == 0) {
                 if(Math.random() < 0.3) {
                     roundOver = true;
+                } else if(currBet > prevBet && matchedBets < totalPlayers - 1){//check/call
+                    cpu.addMoney(-1 * (currBet - prevBet));
+                    matchedBets++;
+                    pot += currBet;
                 }
             }
 
