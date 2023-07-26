@@ -42,6 +42,15 @@ public class Player extends Actor
 
     public void addMoney(int amountWon) {money = money + amountWon;}
 
+    public boolean reduceMoney(int amountLost) {
+        if(amountLost > money) {
+            return false;
+        } else {
+            money -= amountLost;
+            return true;
+        }
+    }
+
     public int getMoney() {
         return money;
     }

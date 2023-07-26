@@ -4,7 +4,6 @@ To Do / Ideas List
 
 1. game logic for poker
 
-        - need to work on being able to properly fold out or a round
         - need to add some kind of checking for valid bets in poker (to lil)
 
 **change poker check from (getting the hand then figuring out points) -> (getting points then figuring out the hand)**

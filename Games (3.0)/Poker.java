@@ -112,7 +112,11 @@ public class Poker extends Game {
                     validInput = true;
                     if(response == 0) {
                         if(currBet > prevBet && matchedBets < totalPlayers - 1) {//cant check, must call
-                            p1.addMoney(-1 * (currBet - prevBet));
+                            if(p1.getMoney() < (currBet - prevBet)) {
+                                p1.addMoney(p1.getMoney());
+                            } else {
+                                p1.addMoney(-1 * (currBet - prevBet));
+                            }
                             matchedBets++;
                             pot += currBet;
                         } //else its a check in which case, just pass
