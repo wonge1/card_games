@@ -23,14 +23,7 @@ public class Driver {
     
 
     public static void main(String[] arg) {
-        /*
-        Card test = new Card(1,3);
-        for(int i = 0; i <= 127; i++)
-        {
-            System.out.printf("%d : %c | ", i, i);
-        }
-        */
-        //SoundPlayer bgSound = new SoundPlayer("Sound/Music.wav");
+        SoundPlayer bgSound = new SoundPlayer("Sound/Music.wav");
         in = new Scanner(System.in);
         deck = new Deck();
         p1 = new Player(in);
@@ -43,10 +36,10 @@ public class Driver {
         } else if(currGameType == GameType.GoFish) {
             
         }
-        //bgSound.play();
+        bgSound.play();
         game.run();
         in.close();
-        //bgSound.stop();
+        bgSound.stop();
     }
 
     public static void getGameType() {
