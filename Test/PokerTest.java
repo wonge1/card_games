@@ -18,6 +18,7 @@ public class PokerTest {
     @Test
     public void straightCheckTest() {
         ArrayList<Card> hand = new ArrayList<Card>();
+        
 
         hand.add(new Card(2));
         hand.add(new Card(4));
@@ -25,6 +26,7 @@ public class PokerTest {
         hand.add(new Card(5));
         hand.add(new Card(6));
         assertEquals(toTest.straightCheck(hand, true),-1);//
+        assertEquals(hand.size(), 5);
 
         hand.add(new Card(7));
         hand.add(new Card(8));
