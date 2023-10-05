@@ -95,11 +95,9 @@ public class Poker extends Game {
             boolean validInput = false;
             String callOrCheck = "";
             System.out.println("Select action to make.");
-            if(firstAction) {
-                callOrCheck = "Check";
-            } else {
-                callOrCheck = "Call";
-            }
+
+            callOrCheck = firstAction ? "Check" : "Call";
+
             System.out.println(0 + ": " + callOrCheck);
             System.out.println(1 + ": " + "Raise");
             System.out.println(2 + ": " + "Fold");
