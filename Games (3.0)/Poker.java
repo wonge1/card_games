@@ -13,7 +13,8 @@ public class Poker extends Game {
     private static final int ante = 500;
     private int pot = 0;
     private int currBet = 0;//gonna have to enable the minimum on this
-    private int prevBet = 0;
+    private int prevPlayerBet = 0;
+    private int prevCPUBet = 0;
     private int totalPlayers = 2;
     private int matchedBets = -1;//will be set as 0 when first bet made,
 
@@ -45,7 +46,7 @@ public class Poker extends Game {
                 System.out.println("You lose...");
             }
             
-            gameCheck();
+            gameCheck();//calls pokers which call game version
         }
     }
 
@@ -71,6 +72,8 @@ public class Poker extends Game {
         cpu.reset();
         communityCards.clear();
         currBet = ante;
+        pot = 2 * ante;
+        p1.addMoney(-currBet);
 
         p1.newCard();
         p1.newCard();
@@ -90,6 +93,7 @@ public class Poker extends Game {
         //fold is to quit this round
         //check is to bet nothing (only if no bet made so far)
         //raise is to increase current bet amount 
+        System.out.println("Total Pot: $" + pot);
         System.out.println("Current Bet: $" + currBet);
         if(player) {
             boolean validInput = false;
@@ -109,17 +113,17 @@ public class Poker extends Game {
                         throw new InputMismatchException();
                     validInput = true;
                     if(response == 0) {
-                        if(currBet > prevBet && matchedBets < totalPlayers - 1) {//cant check, must call
-                            if(p1.getMoney() < (currBet - prevBet)) {
+                        if(currBet > prevPlayerBet && matchedBets < totalPlayers - 1) {//cant check, must call
+                            if(p1.getMoney() < (currBet - prevPlayerBet)) {
                                 p1.addMoney(p1.getMoney());
                             } else {
-                                p1.addMoney(-1 * (currBet - prevBet));
+                                p1.addMoney(-1 * (currBet - prevPlayerBet));
                             }
                             matchedBets++;
                             pot += currBet;
                         } //else its a check in which case, just pass
                     } else if(response == 1) {//raise
-                        prevBet = currBet;  
+                        prevPlayerBet = currBet;  
                         currBet = p1.betAmount();
                         System.out.println("Raise by: " + currBet);
                         pot += currBet;
@@ -139,13 +143,13 @@ public class Poker extends Game {
             //raise
             if(currentPoints > 0) {
                 if(Math.random() < 0.3) {//raise at 30% chance
-                    prevBet = currBet;  
+                    prevCPUBet = currBet;  
                     currBet += 500;
                     System.out.println("Raise by: " + currBet);
                     pot += currBet;
                     matchedBets = 0;
-                } else if(currBet > prevBet && matchedBets < totalPlayers - 1){//check/call
-                    cpu.addMoney(-1 * (currBet - prevBet));
+                } else if(currBet > prevCPUBet && matchedBets < totalPlayers - 1){//check/call
+                    cpu.addMoney(-1 * (currBet - prevCPUBet));
                     matchedBets++;
                     pot += currBet;
                 }
@@ -154,14 +158,18 @@ public class Poker extends Game {
                     roundOver = true;
                     cpu.defeated = true;
                     System.out.println("CPU1 Folded");
-                } else if(currBet > prevBet && matchedBets < totalPlayers - 1){//check/call
-                    cpu.addMoney(-1 * (currBet - prevBet));
+                } else if(currBet > prevCPUBet && matchedBets < totalPlayers - 1){//check/call
+                    cpu.addMoney(-1 * (currBet - prevCPUBet));
                     matchedBets++;
                     pot += currBet;
                 }
             }
 
             //fold
+        }
+
+        if(firstAction) {
+            firstAction = false;
         }
     }
 
