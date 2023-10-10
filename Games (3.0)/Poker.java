@@ -46,7 +46,7 @@ public class Poker extends Game {
                 System.out.println("You lose...");
             }
             
-            gameCheck();//calls pokers which call game version
+            gameCheck();
         }
     }
 
@@ -71,9 +71,12 @@ public class Poker extends Game {
         p1.reset();
         cpu.reset();
         communityCards.clear();
+
         currBet = ante;
-        pot = 2 * ante;
+        prevCPUBet = ante;
+        prevPlayerBet = ante;
         p1.addMoney(-currBet);
+        pot = 2 * ante;
 
         p1.newCard();
         p1.newCard();
@@ -124,9 +127,9 @@ public class Poker extends Game {
                         } //else its a check in which case, just pass
                     } else if(response == 1) {//raise
                         prevPlayerBet = currBet;  
-                        currBet = p1.betAmount();
-                        System.out.println("Raise by: " + currBet);
-                        pot += currBet;
+                        currBet += p1.betAmount();
+                        System.out.println("Raise to: " + currBet);
+                        pot += (currBet-prevPlayerBet);
                         matchedBets = 0;
                     } else if(response == 2) {//fold
                         roundOver = true;
@@ -138,20 +141,20 @@ public class Poker extends Game {
             }
         } else {//if computer
             int currentPoints = checkHand(cpu.getHand());
-            //check/call
             
             //raise
             if(currentPoints > 0) {
                 if(Math.random() < 0.3) {//raise at 30% chance
                     prevCPUBet = currBet;  
                     currBet += 500;
-                    System.out.println("Raise by: " + currBet);
+                    System.out.println("CPU Raise to: " + currBet);
                     pot += currBet;
                     matchedBets = 0;
-                } else if(currBet > prevCPUBet && matchedBets < totalPlayers - 1){//check/call
+                } else if(currBet > prevCPUBet && matchedBets < totalPlayers - 1){//call
                     cpu.addMoney(-1 * (currBet - prevCPUBet));
                     matchedBets++;
                     pot += currBet;
+                    System.out.println("CPU Call With Points");
                 }
             } else if(currentPoints == 0) {
                 if(Math.random() < 0.3) {
@@ -162,6 +165,7 @@ public class Poker extends Game {
                     cpu.addMoney(-1 * (currBet - prevCPUBet));
                     matchedBets++;
                     pot += currBet;
+                    System.out.println("CPU Call Without Points");
                 }
             }
 
