@@ -2,9 +2,9 @@
 To Do / Ideas List
 -----------------------------------------------------------------------
 
-1. Poker betting seems off, numbers not adding up properly. LOTS OF ISSUES with the numbers, variables not getting set/used properly
+1. Numbers seem fine now, need to recheck flow of betting
 
-2. make ai for poker
+2. Add in sockets for online play
 
 
 
@@ -13,9 +13,14 @@ To Do / Ideas List
 
 ISSUES
 
--turn didnt come back to player to call increased bet,
+- turn didnt come back to player to call increased bet,
     - need to add while loop for contents at line 30-31 in poker.java 
 
+-gameplay loop is fucked, doesnt flow properly to end a betting round
+
+- poker line 172 needs to be removed
+
+-isseus with check doing nothign?
 
 FIXED?
 

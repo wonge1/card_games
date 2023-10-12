@@ -17,6 +17,7 @@ public class Poker extends Game {
     private int prevCPUBet = 0;
     private int totalPlayers = 2;
     private int matchedBets = -1;//will be set as 0 when first bet made,
+    private boolean bettingRoundOver = false;
 
     private ArrayList<Card> communityCards = new ArrayList<Card>();
 
@@ -27,8 +28,11 @@ public class Poker extends Game {
 
     @Override
     public void game() {//game running that will be looped  
-        turn(true); //players turn
-        turn(false); //cpu turn
+        while(!bettingRoundOver) {
+            turn(true); //players turn
+            if(!bettingRoundOver)
+                turn(false); //cpu turn
+        }
 
         if(communityCards.size() < 5 && !roundOver) {
             //new card to set
@@ -48,6 +52,7 @@ public class Poker extends Game {
             
             gameCheck();
         }
+        bettingRoundOver = false;
     }
 
     @Override
@@ -100,12 +105,9 @@ public class Poker extends Game {
         System.out.println("Current Bet: $" + currBet);
         if(player) {
             boolean validInput = false;
-            String callOrCheck = "";
             System.out.println("Select action to make.");
 
-            callOrCheck = firstAction ? "Check" : "Call";
-
-            System.out.println(0 + ": " + callOrCheck);
+            System.out.println(0 + ": " + "Check/Call");
             System.out.println(1 + ": " + "Raise");
             System.out.println(2 + ": " + "Fold");
             p1.printMoney();
@@ -123,17 +125,20 @@ public class Poker extends Game {
                                 p1.addMoney(-1 * (currBet - prevPlayerBet));
                             }
                             matchedBets++;
-                            pot += currBet;
+                            pot += (currBet - prevPlayerBet);
+                            prevPlayerBet = currBet;
+                            bettingRoundOver = true;
                         } //else its a check in which case, just pass
                     } else if(response == 1) {//raise
                         prevPlayerBet = currBet;  
                         currBet += p1.betAmount();
                         System.out.println("Raise to: " + currBet);
-                        pot += (currBet-prevPlayerBet);
+                        pot += (currBet - prevPlayerBet);
                         matchedBets = 0;
                     } else if(response == 2) {//fold
                         roundOver = true;
                         p1.defeated = true;
+                        bettingRoundOver = true;
                     }
                 } catch (InputMismatchException e) {
                     System.out.println("Invalid input please try again.");
@@ -147,34 +152,35 @@ public class Poker extends Game {
                 if(Math.random() < 0.3) {//raise at 30% chance
                     prevCPUBet = currBet;  
                     currBet += 500;
-                    System.out.println("CPU Raise to: " + currBet);
-                    pot += currBet;
+                    System.out.println(" --------------------- CPU Raise to: " + currBet);
+                    pot += 500;
                     matchedBets = 0;
                 } else if(currBet > prevCPUBet && matchedBets < totalPlayers - 1){//call
                     cpu.addMoney(-1 * (currBet - prevCPUBet));
                     matchedBets++;
-                    pot += currBet;
-                    System.out.println("CPU Call With Points");
+                    pot += (currBet - prevCPUBet);
+                    prevCPUBet = currBet;
+                    System.out.println(" --------------------- CPU Call With Points");
+                    bettingRoundOver = true;
                 }
             } else if(currentPoints == 0) {
                 if(Math.random() < 0.3) {
                     roundOver = true;
                     cpu.defeated = true;
-                    System.out.println("CPU1 Folded");
+                    System.out.println(" --------------------- CPU1 Folded");
+                    bettingRoundOver = true;
                 } else if(currBet > prevCPUBet && matchedBets < totalPlayers - 1){//check/call
                     cpu.addMoney(-1 * (currBet - prevCPUBet));
                     matchedBets++;
-                    pot += currBet;
-                    System.out.println("CPU Call Without Points");
+                    pot += (currBet - prevCPUBet);
+                    System.out.println(" --------------------- CPU Call Without Points");
+                    bettingRoundOver = true;
                 }
             }
 
             //fold
         }
 
-        if(firstAction) {
-            firstAction = false;
-        }
     }
 
     public int checkHand(ArrayList<Card> currHand) {
