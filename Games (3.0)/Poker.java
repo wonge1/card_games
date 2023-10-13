@@ -130,10 +130,10 @@ public class Poker extends Game {
                             bettingRoundOver = true;
                         } //else its a check in which case, just pass
                     } else if(response == 1) {//raise
-                        prevPlayerBet = currBet;  
                         currBet += p1.betAmount();
                         System.out.println("Raise to: " + currBet);
                         pot += (currBet - prevPlayerBet);
+                        prevPlayerBet = currBet;  
                         matchedBets = 0;
                     } else if(response == 2) {//fold
                         roundOver = true;

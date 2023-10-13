@@ -20,7 +20,7 @@ ISSUES
 
 - poker line 172 needs to be removed
 
--isseus with check doing nothign?
+- isseus with check doing nothign?
 
 FIXED?
 
