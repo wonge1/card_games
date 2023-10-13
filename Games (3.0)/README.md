@@ -3,6 +3,7 @@ To Do / Ideas List
 -----------------------------------------------------------------------
 
 1. Numbers seem fine now, need to recheck flow of betting
+ - seems ok, but should do additional testing
 
 2. Add in sockets for online play
 
@@ -13,15 +14,5 @@ To Do / Ideas List
 
 ISSUES
 
-- turn didnt come back to player to call increased bet,
-    - need to add while loop for contents at line 30-31 in poker.java 
+- poker line 172 needs to be removed (print line, do at end of poker dev)
 
--gameplay loop is fucked, doesnt flow properly to end a betting round
-
-- poker line 172 needs to be removed
-
-- isseus with check doing nothign?
-
-FIXED?
-
--pot increased by new currbet as opposed to additional raised
