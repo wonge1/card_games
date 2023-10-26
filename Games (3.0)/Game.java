@@ -26,9 +26,9 @@ public abstract class Game {
 
     public void run() {
         while(gameOver == false) {
-            newRound();
+            newRound();//setup start
             while(roundOver == false) {
-                game();
+                game();//main body of program
             }
         }
     }

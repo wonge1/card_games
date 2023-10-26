@@ -16,7 +16,7 @@ public class Driver {
     private static enum GameType {
         TwentyOne, //twenty one
         Poker,
-        GoFish
+        Online
     }
     private static GameType currGameType;
     private static Game game;
@@ -33,8 +33,8 @@ public class Driver {
             game = new TwentyOne(p1, in);
         } else if(currGameType == GameType.Poker) {
             game = new Poker(p1, in);
-        } else if(currGameType == GameType.GoFish) {
-            
+        } else if(currGameType == GameType.Online) {
+            game = new Online(p1, in);
         }
         bgSound.play();
         game.run();
@@ -60,6 +60,8 @@ public class Driver {
                     case 0: currGameType = GameType.TwentyOne;
                         break;
                     case 1: currGameType = GameType.Poker;
+                        break;
+                    case 2: currGameType = GameType.Online;
                         break;
                 }
             } catch (InputMismatchException e) {
